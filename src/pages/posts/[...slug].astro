@@ -1,8 +1,13 @@
 ---
 import { getSlugFromPath } from "../../lib/utils";
 import Layout from "../../components/Layout.astro";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
   const allPosts = (await Astro.glob("../../content/posts/*.md")) as any;
 
   console.log(allPosts);
@@ -23,7 +28,10 @@ export async function getStaticPaths() {
   });
 
   return paths;
-}
+}) satisfies GetStaticPaths;
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props as any;
 ---

@@ -1,8 +1,6 @@
-import { ChangeEvent } from "react";
-
 interface searchBarProps {
   placeholderText: string;
-  handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSearch: (e: any) => void;
   searchVal: string;
   isSticky: boolean;
 }
@@ -15,13 +13,11 @@ export default function SearchBar({
 }: searchBarProps) {
   return (
     <input
-      onChange={handleSearch}
+      onInput={handleSearch}
       placeholder={placeholderText}
       value={searchVal}
       data-default=""
-      className={`roboto mb3 f5 f4-ns normal ba br3 pa2  ${
-        isSticky && "sticky"
-      }`}
+      className={`roboto mb3 f5 f4-ns normal ba br3 pa2  ${isSticky && "sticky"}`}
     />
   );
 }

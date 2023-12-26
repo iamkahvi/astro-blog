@@ -1,9 +1,19 @@
 ---
 import Layout from "../components/Layout.astro";
-import PostEntry from "../components/PostEntry.astro";
+import BlogList from "../components/BlogList";
 
-const title = "kahvi's blog";
-const description = "I create here sometimes. And rarely capitalize.";
+const siteMetadata = {
+  title: `kahvi's blog`,
+  author: `Kahvi Patel`,
+  description: `I create here sometimes. And rarely capitalize.`,
+  siteUrl: `https://kahvipatel.com/`,
+  social: {
+    twitter: `iamkahvi`,
+    instagram: `iamkahvi`,
+  },
+};
+
+const { title, description } = siteMetadata;
 
 const allPosts = await Astro.glob("../content/posts/*.md");
 const sortedPosts = allPosts
@@ -13,19 +23,12 @@ const sortedPosts = allPosts
       new Date(a.frontmatter.date).valueOf(),
   )
   .filter((p) => p.frontmatter.hidden !== true);
+
+console.log(sortedPosts.map((p) => p.frontmatter.title));
 ---
 
 <Layout title={title} description={description}>
   <body>
-    {
-      sortedPosts
-        .map((entry, ind, arr) => ({
-          current: entry,
-          previous: arr[ind - 1] ?? null,
-        }))
-        .map(({ current, previous }) => (
-          <PostEntry current={current} previous={previous} />
-        ))
-    }
+    <BlogList posts={sortedPosts} client:load />
   </body>
 </Layout>
