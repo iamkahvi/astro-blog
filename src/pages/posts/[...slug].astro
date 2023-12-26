@@ -1,0 +1,37 @@
+---
+import { getSlugFromPath } from "../../lib/utils";
+
+export async function getStaticPaths() {
+  const allPosts = (await Astro.glob("../../content/old_posts/*.md")) as any;
+
+  console.log(allPosts);
+  console.log(allPosts[0].file);
+  console.log(getSlugFromPath(allPosts[0].file));
+
+  const paths = allPosts.map((post: any) => {
+    const slug = getSlugFromPath(post.file);
+
+    console.log(post.frontmatter.title);
+
+    return {
+      params: {
+        slug,
+      },
+      props: { post },
+    };
+  });
+
+  return paths;
+}
+
+const { post } = Astro.props as any;
+---
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<div>
+  <h1>{post.frontmatter.title}</h1>
+  <post.Content />
+</div>
