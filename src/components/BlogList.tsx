@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import type { ChangeEvent } from "react";
 
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import BookListLogo from "./bookListLogo";
 
 import { CURR_YEAR_STRING, getSlugFromPath, getDateFormats } from "../lib/utils";
@@ -12,7 +12,6 @@ export default function BlogList({ posts }: { posts: any }) {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
 
-    console.log(e.target.value);
     setSearch(e.target.value);
     // if (e.target.value.toLowerCase() === "mama") {
     //   navigate("/mothersday", { state: { isAuth: true } });
@@ -20,11 +19,9 @@ export default function BlogList({ posts }: { posts: any }) {
   };
 
   const renderPost = ({
-    next,
     current,
     previous,
   }: {
-    next: any;
     current: any;
     previous: any;
   }) => {
@@ -33,16 +30,8 @@ export default function BlogList({ posts }: { posts: any }) {
 
     const { year, displayDate, displayDateSmall } = getDateFormats(date);
     const { year: prevYear = null } = previous ? getDateFormats(previous?.frontmatter?.date) : {};
-    const { year: nextYear = null } = next ? getDateFormats(next?.frontmatter?.date) : {};
 
     const color = year === CURR_YEAR_STRING ? "c-main" : "c-second";
-
-    console.log("title" + title);
-    console.log("prevYear " + prevYear);
-    console.log("year " + year);
-    console.log("nextYear " + nextYear);
-
-    console.log(prevYear !== year || prevYear === null)
 
     return (
       <div key={url}>
@@ -81,8 +70,9 @@ export default function BlogList({ posts }: { posts: any }) {
 
   const filterPosts = (entry: any) => {
     const { title, date, description } = entry.frontmatter;
+    const { displayDate } = getDateFormats(date);
 
-    return (title + date + description)
+    return (title + displayDate + description)
       .toLowerCase()
       .includes(search.toLowerCase()) || search === ""
   }
@@ -99,7 +89,6 @@ export default function BlogList({ posts }: { posts: any }) {
       {posts
         .filter(filterPosts)
         .map((entry: any, ind: number, arr: any) => ({
-          next: arr[ind + 1] ?? null,
           current: entry,
           previous: arr[ind - 1] ?? null,
         }))

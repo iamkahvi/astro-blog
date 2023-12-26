@@ -1,0 +1,23 @@
+---
+
+---
+
+<script>
+  import {
+    getInitialColorMode,
+    setRootStyles,
+    setTheme,
+  } from "../lib/color-theme.ts";
+
+  (function () {
+    const colorMode = getInitialColorMode();
+    setRootStyles(colorMode);
+  })();
+
+  const button = document.getElementById("color-theme-toggle");
+  button!.addEventListener("click", () => {
+    setTheme();
+  });
+</script>
+
+<button id="color-theme-toggle" class="bn br3 f4">🌚</button>

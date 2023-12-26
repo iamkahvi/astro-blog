@@ -1,8 +1,8 @@
 ---
-import "../styles/global.css";
 import "../styles/tachyons.css";
 import "../styles/style.css";
 import "../styles/links.css";
+import ColorTheme from "./ColorTheme.astro";
 
 type Props = { title: string; description: string; children: any };
 
@@ -16,31 +16,33 @@ const descriptionStyle = "f6 roboto pt1 mt2 c-second";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{title}</title>
   </head>
-  <header class="pa3">
-    <div class="flex items-center justify-between">
-      <p class="c-third">
-        <a href="/" class={navStyle.concat(" mr2")}> Home</a>
-         /
-        <a href="/book-shelf" class={navStyle.concat(" mh2")}> Book Shelf</a>
-         /
-        <a href="/about" class={navStyle.concat(" ml2")}> About</a>
-      </p>
-    </div>
-    {
-      Astro.url.pathname === "/" && (
-        <div>
-          <div class="mt4">
-            <h1 class="mb0 b helvetica underline f1">{title}</h1>
-            <p class={descriptionStyle}>{description}</p>
+  <div class="w-90-ns mw7 mv4 center c-background">
+    <header class="pa3">
+      <div class="flex items-center justify-between">
+        <p class="c-third">
+          <a href="/" class={navStyle.concat(" mr2")}> Home</a>
+           /
+          <a href="/book-shelf" class={navStyle.concat(" mh2")}> Book Shelf</a>
+           /
+          <a href="/about" class={navStyle.concat(" ml2")}> About</a>
+        </p>
+        <ColorTheme />
+      </div>
+      {
+        Astro.url.pathname === "/" && (
+          <div>
+            <div class="mt4">
+              <h1 class="mb0 b helvetica underline f1">{title}</h1>
+              <p class={descriptionStyle}>{description}</p>
+            </div>
           </div>
-        </div>
-      )
-    }
-  </header>
-  <main class="pa3"><slot /></main>
+        )
+      }
+    </header>
+    <main class="pa3"><slot /></main>
+  </div>
 
 
 </html>
