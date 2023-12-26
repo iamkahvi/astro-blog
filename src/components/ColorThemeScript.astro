@@ -9,15 +9,15 @@
     setTheme,
   } from "../lib/color-theme.ts";
 
+  const themeToggleId = "color-theme-toggle";
+
   (function () {
     const colorMode = getInitialColorMode();
     setRootStyles(colorMode);
   })();
 
-  const button = document.getElementById("color-theme-toggle");
+  const button = document.getElementById(themeToggleId);
   button!.addEventListener("click", () => {
     setTheme();
   });
 </script>
-
-<button id="color-theme-toggle" class="bn br3 f4">🌚</button>

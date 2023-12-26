@@ -2,7 +2,7 @@ import { useState } from "preact/hooks";
 import type { ChangeEvent } from "react";
 
 import SearchBar from "./SearchBar";
-import BookListLogo from "./bookListLogo";
+import BookListLogo from "./BookListLogo";
 
 import { CURR_YEAR_STRING, getSlugFromPath, getDateFormats } from "../lib/utils";
 

@@ -35,8 +35,10 @@ export const getInitialColorMode = () => {
 
 export const setRootStyles = (theme: any) => {
   const root = document.documentElement;
+  // @ts-ignore
   Object.entries(themeMap[theme]).forEach((val) => {
     const [k, v] = val;
+    // @ts-ignore
     root.style.setProperty(k, v);
 
     // Ugly fix for selection color
@@ -52,7 +54,6 @@ export const setTheme = (theme?: Themes) => {
   window.localStorage.setItem("color-theme", t);
   setRootStyles(t);
 };
-
 
 const randTheme = (currTheme: Themes): Themes => {
   const theme = Object.entries(themeMap)[
