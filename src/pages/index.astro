@@ -1,16 +1,31 @@
 ---
+import Layout from "../components/Layout.astro";
+import PostEntry from "../components/PostEntry.astro";
 
+const title = "kahvi's blog";
+const description = "I create here sometimes. And rarely capitalize.";
+
+const allPosts = await Astro.glob("../content/posts/*.md");
+const sortedPosts = allPosts
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).valueOf() -
+      new Date(a.frontmatter.date).valueOf(),
+  )
+  .filter((p) => p.frontmatter.hidden !== true);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>My Astro Site</h1>
-	</body>
-</html>
+<Layout title={title} description={description}>
+  <body>
+    {
+      sortedPosts
+        .map((entry, ind, arr) => ({
+          current: entry,
+          previous: arr[ind - 1] ?? null,
+        }))
+        .map(({ current, previous }) => (
+          <PostEntry current={current} previous={previous} />
+        ))
+    }
+  </body>
+</Layout>

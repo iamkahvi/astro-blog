@@ -1,0 +1,31 @@
+---
+import { CURR_YEAR_STRING, getSlugFromPath } from "../lib/utils";
+
+const { current, previous } = Astro.props;
+const { title, year, description = "hi" } = current.frontmatter;
+const url = "/posts/" + getSlugFromPath(current.file);
+
+const prevYear = previous?.year ?? null;
+
+const color = year === CURR_YEAR_STRING ? "c-main" : "c-second";
+---
+
+<div>
+  {prevYear !== year && <h1 class={`roboto f5 ${color} tc mb3`}>{year}</h1>}
+  <div class="pv3 bt b--c-third flex items-center justify-between">
+    <h3 class="mv0 w-two-thirds">
+      <a style={{ boxShadow: `none` }} class="f4 mb2 roboto c-main" href={url}>
+        {title}
+      </a>
+      <p class="f6 fw4 roboto c-second">
+        {description}
+      </p>
+    </h3>
+    <small class="post-date f5 roboto c-second fr tr w-third">
+      {current.displayDate}
+    </small>
+    <small class="post-date-small f5 roboto c-second fr tr w-third">
+      {current.displayDateSmall}
+    </small>
+  </div>
+</div>

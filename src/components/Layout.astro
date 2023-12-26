@@ -1,14 +1,22 @@
 ---
+import "../styles/global.css";
+import "../styles/tachyons.css";
+import "../styles/style.css";
+import "../styles/links.css";
+
 const { title, description } = Astro.props;
 const navStyle = "roboto c-main";
 const descriptionStyle = "f6 roboto pt1 mt2 c-second";
 ---
 
-<head>
-  <meta charset="utf-8" />
-</head>
-
-<div class="w-90-ns mw7 mv4 center c-background">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
   <header class="pa3">
     <div class="flex items-center justify-between">
       <p class="c-third">
@@ -20,7 +28,7 @@ const descriptionStyle = "f6 roboto pt1 mt2 c-second";
       </p>
     </div>
     {
-      Astro.request.url === "/" && (
+      Astro.url.pathname === "/" && (
         <div>
           <div class="mt4">
             <h1 class="mb0 b helvetica underline f1">{title}</h1>
@@ -31,4 +39,6 @@ const descriptionStyle = "f6 roboto pt1 mt2 c-second";
     }
   </header>
   <main class="pa3"><slot /></main>
-</div>
+
+
+</html>
