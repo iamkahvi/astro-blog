@@ -1,5 +1,16 @@
 ---
+import Layout from "../components/Layout.astro";
+import { Content } from "../content/about/about.md";
 
+const title = "About Me";
 ---
 
-<h1>about page</h1>
+<Layout title={title} description="">
+  <h1 class="mt0">{title}</h1>
+  <div>
+    <img class="profile" src="/assets/profile.jpg" alt="Headshot Photo" />
+  </div>
+  <div class="textBody">
+    <Content />
+  </div>
+</Layout>
