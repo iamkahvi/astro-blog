@@ -1,0 +1,34 @@
+---
+const { title, description } = Astro.props;
+const navStyle = "roboto c-main";
+const descriptionStyle = "f6 roboto pt1 mt2 c-second";
+---
+
+<head>
+  <meta charset="utf-8" />
+</head>
+
+<div class="w-90-ns mw7 mv4 center c-background">
+  <header class="pa3">
+    <div class="flex items-center justify-between">
+      <p class="c-third">
+        <a href="/" class={navStyle.concat(" mr2")}> Home</a>
+         /
+        <a href="/book-shelf" class={navStyle.concat(" mh2")}> Book Shelf</a>
+         /
+        <a href="/about" class={navStyle.concat(" ml2")}> About</a>
+      </p>
+    </div>
+    {
+      Astro.request.url === "/" && (
+        <div>
+          <div class="mt4">
+            <h1 class="mb0 b helvetica underline f1">{title}</h1>
+            <p class={descriptionStyle}>{description}</p>
+          </div>
+        </div>
+      )
+    }
+  </header>
+  <main class="pa3"><slot /></main>
+</div>
