@@ -1,0 +1,494 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap");
+
+
+:root {
+  /* Mother's Day */
+  color-0: #bc0e92;
+  color-1: #b12da0;
+  color-2: #a73dad;
+  color-3: #9c4ab8;
+  color-4: #9154c1;
+  color-5: #855cca;
+  color-6: #7964d3;
+  color-7: #6c6bdb;
+  color-8: #5d71e2;
+
+  --c-main: #FFA9A3;
+  --c-second: #7D938A;
+  --c-third: #c9dfe6;
+  --cc-background: white;
+  --c-main-selection: #FFA9A350;
+}
+
+.booklist img {
+  width: 10px;
+}
+
+.book-shelf-logo {
+  color: var(--c-main);
+  font-size: Min(6rem, calc(14vw));
+  height: 8rem;
+  border-radius: 0.5rem;
+
+  background-image: linear-gradient(
+      344deg,
+      var(--c-second) 13%,
+      rgba(255, 255, 255, 0) 71%
+    ),
+    radial-gradient(
+      ellipse at -120% 6%,
+      var(--c-third) 35%,
+      rgba(255, 255, 255, 0) 66%
+    ),
+    linear-gradient(13deg, var(--c-main) 40%, rgba(255, 255, 255, 0) 87%);
+}
+
+.book {
+  list-style-position: outside;
+}
+
+.book::before {
+  margin-top: -35px;
+  display: block;
+  padding-top: 35px;
+}
+
+::selection {
+  background-color: var(--c-main-selection);
+}
+
+svg {
+  height: 20px;
+  width: 20px;
+  transition: fill 0.2s;
+  fill: lightgrey;
+
+  &:hover {
+    fill: var(--c-main);
+  }
+}
+
+.b--c-main {
+  border-color: var(--c-main);
+}
+
+.b--c-second {
+  border-color: var(--c-second);
+}
+
+.b--c-third {
+  border-color: var(--c-third);
+}
+
+.roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Custom Colors */
+.c-main {
+  color: var(--c-main);
+}
+
+.c-second {
+  color: var(--c-second);
+}
+
+.c-third {
+  color: var(--c-third);
+}
+
+body {
+  background-color: var(--c-background);
+}
+
+.textBody hr {
+  margin-bottom: 25px;
+}
+
+.textBody li {
+  margin-left: 1.2rem;
+  line-height: 1.5;
+}
+
+.textBody ul,
+ol {
+  margin-bottom: 20px;
+}
+
+.textBody {
+  line-height: 1.5;
+  font-family: "Roboto";
+  margin-bottom: 3rem;
+  color: var(--c-second);
+  font-size: 1.125rem;
+}
+
+.booklist {
+  font-size: 5em;
+}
+
+@media only screen and (max-width: 768px) {
+  .textBody {
+    font-size: 1rem;
+  }
+
+  .booklist {
+    font-size: 4em;
+  }
+}
+
+.textBody .academic p {
+  font-family: serif;
+  font-size: 1em;
+  line-height: 1.75em;
+  color: black;
+  background-color: transparent;
+}
+
+.textBody p {
+  font-family: "Roboto";
+  margin-bottom: 20px;
+}
+
+li > p {
+  margin-bottom: 5px !important;
+}
+
+blockquote > p {
+  margin-bottom: 5px !important;
+}
+
+blockquote {
+  margin-bottom: 20px;
+}
+
+.textBody h1,
+h2,
+h3 {
+  font-family: "Roboto";
+  margin-bottom: 20px;
+}
+
+.textBody h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto";
+  color: var(--c-second);
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1 {
+  font-weight: 400;
+  color: var(--c-main);
+}
+
+h3 {
+  font-weight: lighter;
+}
+
+h3 a,
+h3 small {
+  font-weight: 400;
+}
+
+h1,
+h2,
+h4,
+h5,
+h6 {
+  font-family: "Roboto";
+  font-weight: 400;
+}
+
+input {
+  /* For Safari 3.1 to 6.0 */
+  transition: font-size 0.05s;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  border-radius: 0;
+  color: var(--c-second);
+  border-color: var(--c-main);
+  width: 100%;
+  outline: none;
+  background: white;
+  background-color: var(--c-background);
+  z-index: 100;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  line-height: normal;
+
+  &:focus {
+    box-shadow: 0 0 0 1px var(--c-main);
+  }
+}
+
+button {
+  font-family: Helvetica, sans-serif;
+  color: var(--c-second);
+  padding: 5px;
+  background: none;
+  border: 1px solid var(--c-second);
+  outline: none;
+  border-color: var(--c-main);
+  box-shadow: none;
+  transition: background 0.2s;
+
+  &:active {
+    box-shadow: 0 0 0 1px var(--c-main);
+  }
+
+  &:hover {
+    background-color: rgba(255, 134, 82, 0.25);
+  }
+}
+
+#loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--c-second);
+  border-radius: 50%;
+  border-top-color: rgba(255, 255, 255, 0);
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+input:hover {
+  border-color: var(--c-main);
+}
+
+input::placeholder {
+  color: var(--c-main);
+}
+
+input.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15px;
+}
+
+input::placeholder {
+  color: var(--c-second);
+  opacity: 0.7;
+}
+
+.profile {
+  width: Min(12rem, 30vw);
+  float: right;
+  margin-right: 0px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1.8rem;
+  border-left: 5px solid #ccc;
+}
+
+@media screen and (max-width: 30em) {
+  .profile {
+    display: block;
+    float: none;
+    width: 10rem;
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+
+  .post-date {
+    display: none;
+  }
+
+  .post-date-small {
+    display: block;
+  }
+
+  .book-shelf-logo {
+    font-size: 4rem;
+    height: 6rem;
+    border-radius: 0;
+  }
+
+  .logo-container {
+    width: 100vw;
+    position: relative;
+    left: calc(-50vw + 50%);
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .post-date {
+    display: block;
+  }
+
+  .post-date-small {
+    display: none;
+  }
+}
+
+hr {
+  border: 1px solid rgba(41, 115, 115, 0.25);
+}
+
+.animation-color-pulse {
+  animation-name: color;
+  animation-direction: normal;
+  animation-duration: 12500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.full {
+  z-index: 10;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  /* Firefox */
+  -webkit-animation: fadein 3s;
+  /* Safari and Chrome */
+  -o-animation: fadein 3s;
+
+  /* Opera */
+  img {
+    width: 23vw;
+    min-width: 250px;
+  }
+}
+
+.layered-shadow {
+  font-family: "futura next", futura, sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+
+  text-shadow: 3px -3px 0 #1bc7db, -3px -0px 0 #e086d3, 0 3px 0 transparent;
+}
+
+.shadow {
+  font-family: "avenir next", avenir, sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: -1px -1px 0 #e086d3, 1px -1px 0 #e086d3, -1px 1px 0 #e086d3,
+    1px 1px 0 #e086d3, 4px 4px 0 #fff3f0, 5px 5px 0 #fff3f0, 6px 6px 0 #fff3f0,
+    7px 7px 0 #fff3f0, 8px 8px 0 #fff3f0, 9px 9px 0 #fff3f0;
+  color: #fff3f0;
+  background: #e086d3;
+}
+
+.paragraph {
+  box-sizing: content-box;
+  font-weight: 400;
+  font-size: 23px;
+  font-stretch: semi-condensed;
+  font-style: oblique;
+  font-family: "futura next", futura, sans-serif;
+  text-align: left;
+  writing-mode: initial;
+  text-shadow: #1bc7db 0px 3px 2px;
+  color: black;
+  background-color: white;
+  max-width: 34em;
+  letter-spacing: 0em;
+  text-decoration-color: var(color-4);
+  text-decoration-line: none;
+  text-decoration-style: double;
+  line-height: 1.25;
+}
+
+@keyframes color {
+  0% {
+    background-color: var(color-3);
+  }
+
+  63% {
+    background-color: var(color-8);
+  }
+
+  100% {
+    background-color: var(color-3);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

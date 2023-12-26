@@ -1,4 +1,8 @@
 ---
+import "../../styles/global.css";
+import "../../styles/tachyons.css";
+import "../../styles/style.css";
+import "../../styles/links.css";
 import { getSlugFromPath } from "../../lib/utils";
 
 export async function getStaticPaths() {
@@ -32,6 +36,18 @@ const { post } = Astro.props as any;
 </head>
 
 <div>
-  <h1>{post.frontmatter.title}</h1>
-  <post.Content />
+  <header class="flex justify-between items-center pb3 mb4 bb b--c-main">
+    <h1 class="f3 c-second ma0 pb0 fw4 roboto w-70">
+      {post.frontmatter.title}
+    </h1>
+    <p class="post-date-small f5 fw4 roboto pa0 ma0 c-second w-30 tr">
+      {post.frontmatter.displayDateSmall}
+    </p>
+    <p class="post-date f5 fw4 roboto pa0 ma0 c-second w-30 tr">
+      {post.frontmatter.displayDate}
+    </p>
+  </header>
+  <div class="textBody">
+    <post.Content />
+  </div>
 </div>
