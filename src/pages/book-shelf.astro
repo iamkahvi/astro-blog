@@ -1,0 +1,14 @@
+---
+import Layout from "../components/Layout.astro";
+import BookList from "../components/BookList";
+import { getBookShelfData } from "../lib/source-contentful";
+
+const data = await getBookShelfData();
+
+const title = "My Book Shelf";
+---
+
+<Layout title={data.title} description="">
+  <h1 class="mt0">{title}</h1>
+  <BookList bookShelf={data} client:load />
+</Layout>
