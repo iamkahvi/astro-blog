@@ -1,17 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap");
-
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display&display=swap'); */
 
 :root {
   /* Mother's Day */
-  color-0: #bc0e92;
-  color-1: #b12da0;
-  color-2: #a73dad;
-  color-3: #9c4ab8;
-  color-4: #9154c1;
-  color-5: #855cca;
-  color-6: #7964d3;
-  color-7: #6c6bdb;
-  color-8: #5d71e2;
+  --color-0: #bc0e92;
+  --color-1: #b12da0;
+  --color-2: #a73dad;
+  --color-3: #9c4ab8;
+  --color-4: #9154c1;
+  --color-5: #855cca;
+  --color-6: #7964d3;
+  --color-7: #6c6bdb;
+  --color-8: #5d71e2;
 
   --c-main: #FFA9A3;
   --c-second: #7D938A;

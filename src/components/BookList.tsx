@@ -14,8 +14,7 @@ export default function BookList(props: Props) {
   const { books, introHtml } = props.bookShelf;
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    // @ts-ignore
-    setSearch(e.target.value);
+    setSearch(e.currentTarget.value);
   };
 
   const renderBook = ({

@@ -49,17 +49,21 @@ const BOOK_SHELF_DATA_QUERY = `
 const RENDER_OPTIONS: Options = {
   renderNode: {
     [INLINES.HYPERLINK]: (node, next) => {
-      const href = typeof node.data.uri === "string" ? node.data.uri : "";
-      const url = new URL(href);
+      try {
+        const href = typeof node.data.uri === "string" ? node.data.uri : "";
+        const url = new URL(href);
+        const target = url.hostname === HOSTNAME ? "" : `target="_blank"`;
 
-      if (url.hostname === HOSTNAME) {
-        return `<a href=${attributeValue(url.href)}>${next(node.content)}</a>`;
+        return `<a href=${attributeValue(url.href)} ${target}>${
+          next(node.content)
+        }</a>`;
+      } catch (e) {
+        return `<a href=${node.data.uri}>${
+          next(
+            node.content,
+          )
+        }</a>`;
       }
-      return `<a href=${attributeValue(url.href)} target="_blank">${
-        next(
-          node.content,
-        )
-      }</a>`;
     },
   },
 };
