@@ -3,7 +3,7 @@ import { getSlugFromBookTitle, getDateFormats } from "../../lib/utils";
 import Layout from "../../components/Layout.astro";
 
 export const getStaticPaths = async () => {
-  const allJson = await Astro.glob("../../content/highlights/*.json");
+  const allJson = (await Astro.glob("../../content/highlights/*.json")) as any;
 
   const paths = allJson.map((post: any) => {
     const slug = getSlugFromBookTitle(post.default[0].book);
@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
     };
   });
 
-  return paths;
+  return paths as any;
 };
 
 const { highlights } = Astro.props as any;
