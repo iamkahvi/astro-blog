@@ -1,19 +1,21 @@
 ---
 import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
+import BookListLogo from "../components/BookListLogo.astro";
 
 const siteMetadata = {
   title: `kahvi's blog`,
   author: `Kahvi Patel`,
   description: `I create here sometimes. And rarely capitalize.`,
   siteUrl: `https://kahvipatel.com/`,
+  newsletterLink: "https://www.newsletter.kahvipatel.com",
   social: {
     twitter: `iamkahvi`,
     instagram: `iamkahvi`,
   },
 };
 
-const { title, description } = siteMetadata;
+const { title, description, newsletterLink } = siteMetadata;
 
 const allPosts = await Astro.glob("../content/posts/*.md");
 const sortedPosts = allPosts
@@ -27,6 +29,11 @@ const sortedPosts = allPosts
 
 <Layout title={title} description={description}>
   <body>
+    <BookListLogo />
+    <a
+      class="mb4 w-100 roboto flex items-center justify-center"
+      href={newsletterLink}>go to the newsletter HERE</a
+    >
     <BlogList posts={sortedPosts} client:load />
   </body>
 </Layout>

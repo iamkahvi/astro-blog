@@ -87,6 +87,7 @@ export async function fetchGraphQL(
         }`,
       },
       body: JSON.stringify({ query }),
+      // @ts-ignore
       next: { tags: ["posts"] },
     },
   );

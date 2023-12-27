@@ -4,6 +4,10 @@ export const getSlugFromPath = (path: string): string => {
   return path.split("/").at(-1)!.replace(".md", "");
 };
 
+export const getSlugFromBookTitle = (path: string): string => {
+  return path.replace(/\s+/g, "_").replace(/[\/\\:*?"<>|]+/g, "").toLowerCase();
+};
+
 export function getDateFormats(
   date: string | number,
   formatOverride?: string,

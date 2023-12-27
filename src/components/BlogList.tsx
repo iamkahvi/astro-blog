@@ -2,7 +2,6 @@ import { useState } from "preact/hooks";
 import type { ChangeEvent } from "react";
 
 import SearchBar from "./SearchBar";
-import BookListLogo from "./BookListLogo";
 
 import { CURR_YEAR_STRING, getSlugFromPath, getDateFormats } from "../lib/utils";
 
@@ -79,7 +78,7 @@ export default function BlogList({ posts }: { posts: any }) {
 
   return (
     <>
-      <BookListLogo />
+
       <SearchBar
         handleSearch={handleSearch}
         placeholderText="search posts..."

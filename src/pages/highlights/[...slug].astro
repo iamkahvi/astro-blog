@@ -1,0 +1,64 @@
+---
+import { getSlugFromBookTitle, getDateFormats } from "../../lib/utils";
+import Layout from "../../components/Layout.astro";
+
+export const getStaticPaths = async () => {
+  const allJson = await Astro.glob("../../content/highlights/*.json");
+
+  const paths = allJson.map((post: any) => {
+    const slug = getSlugFromBookTitle(post.default[0].book);
+    console.log("SLUG:", slug);
+
+    return {
+      params: {
+        slug,
+      },
+      props: { highlights: post.default },
+    };
+  });
+
+  return paths;
+};
+
+const { highlights } = Astro.props as any;
+
+const { book: bookTitle, author, dateAdded: epochSeconds } = highlights[0];
+const title = `${bookTitle} Highlights`;
+
+const { displayDate, displayDateSmall } = getDateFormats(epochSeconds);
+---
+
+<Layout title={title} description={""}>
+  <header class="flex justify-between items-center pb3 mb3 bb b--c-third">
+    <h1 class="f3 c-second ma0 pb0 fw4 roboto w-70">{title}</h1>
+    <p class="post-date-small f5 fw4 roboto pa0 ma0 c-second w-30 tr">
+      {displayDateSmall}
+    </p>
+    <p class="post-date f5 fw4 roboto pa0 ma0 c-second w-30 tr">
+      {displayDate}
+    </p>
+  </header>
+  <div class="textBody">
+    <div class="mb3">
+      {`by ${author}`}
+    </div>
+    {highlights.map((highlight: any) => {
+      const {
+        quote,
+        location: { start, end },
+      } = highlight;
+
+      return (
+        <>
+          <blockquote>
+            <p>{quote}</p>
+          </blockquote>
+          {start && <p class="mb4">
+            loc. {start}-{end}
+          </p>}
+          <hr></hr>
+        </>
+      );
+    })}
+  </div>
+</Layout>
