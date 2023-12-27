@@ -15,22 +15,22 @@ export const getCurrentColorTheme = () => {
   return window.localStorage.getItem("color-theme") as Themes;
 };
 
-export const getInitialColorMode = () => {
+export const getInitialColorMode: () => Themes = () => {
   const persistedColorPreference = window.localStorage.getItem("color-theme");
   const hasPersistedPreference = typeof persistedColorPreference === "string";
 
   if (hasPersistedPreference) {
-    return persistedColorPreference;
+    return persistedColorPreference as Themes;
   }
 
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
   const hasMediaQueryPreference = typeof mql.matches === "boolean";
 
   if (hasMediaQueryPreference && mql.matches) {
-    return "dark";
+    return Themes.Dark;
   }
 
-  return "classic";
+  return Themes.Classic;
 };
 
 export const setRootStyles = (theme: Themes) => {
