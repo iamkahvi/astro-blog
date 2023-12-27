@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
 import BookListLogo from "../components/BookListLogo.astro";
@@ -17,14 +18,11 @@ const siteMetadata = {
 
 const { title, description, newsletterLink } = siteMetadata;
 
-const allPosts = await Astro.glob("../content/posts/*.md");
-const sortedPosts = allPosts
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).valueOf() -
-      new Date(a.frontmatter.date).valueOf(),
-  )
-  .filter((p) => p.frontmatter.hidden !== true);
+const allPosts = await getCollection("posts");
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+);
+// .filter((p) => p.data?.published === true);
 ---
 
 <Layout title={title} description={description}>

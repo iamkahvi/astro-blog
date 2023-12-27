@@ -1,6 +1,8 @@
+import type { JSX } from 'preact'
+
 interface searchBarProps {
   placeholderText: string;
-  handleSearch: (e: any) => void;
+  handleSearch: (e: JSX.TargetedEvent<HTMLInputElement, Event>) => void;
   searchVal: string;
   isSticky: boolean;
 }

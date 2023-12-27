@@ -22,7 +22,7 @@ export const getStaticPaths = async () => {
 
 const { post } = Astro.props;
 const { title, date, description = "" } = post.data;
-const { displayDate, displayDateSmall } = getDateFormats(date.toDateString());
+const { displayDate, displayDateSmall } = getDateFormats(date);
 const { Content } = await post.render();
 ---
 

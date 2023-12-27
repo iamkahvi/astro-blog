@@ -33,7 +33,7 @@ export const getInitialColorMode = () => {
   return "classic";
 };
 
-export const setRootStyles = (theme: any) => {
+export const setRootStyles = (theme: Themes) => {
   const root = document.documentElement;
   // @ts-ignore
   Object.entries(themeMap[theme]).forEach((val) => {

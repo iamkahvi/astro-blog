@@ -1,12 +1,19 @@
 import { useState } from "preact/hooks";
+import type { JSX } from 'preact'
+
 import SearchBar from './SearchBar'
 import { yearMap } from "../lib/utils";
+import type { BookShelfData, BookNode } from "../lib/source-contentful";
 
-export default function BookList({ bookShelf }: { bookShelf: { books: any, introHtml: any } }) {
+interface Props {
+  bookShelf: BookShelfData;
+}
+
+export default function BookList(props: Props) {
   const [search, setSearch] = useState("");
-  const { books, introHtml } = bookShelf;
+  const { books, introHtml } = props.bookShelf;
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     // @ts-ignore
     setSearch(e.target.value);
   };
@@ -50,7 +57,7 @@ export default function BookList({ bookShelf }: { bookShelf: { books: any, intro
     );
   };
 
-  const filterBooks = (book: any) => {
+  const filterBooks = (book: BookNode) => {
     const { title, author, dateFinished } = book;
 
     return `${title} by ${author} - ${dateFinished}`

@@ -1,14 +1,21 @@
+import type { CollectionEntry } from 'astro:content';
 import { useState } from "preact/hooks";
-import type { ChangeEvent } from "react";
+import type { JSX } from 'preact'
 
 import SearchBar from "./SearchBar";
 
-import { CURR_YEAR_STRING, getSlugFromPath, getDateFormats } from "../lib/utils";
+import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 
-export default function BlogList({ posts }: { posts: any }) {
+type BlogPost = CollectionEntry<'posts'>;
+
+interface Props {
+  posts: BlogPost[];
+}
+
+export default function BlogList(props: Props) {
   const [search, setSearch] = useState("");
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     // @ts-ignore
 
     setSearch(e.target.value);
@@ -21,14 +28,14 @@ export default function BlogList({ posts }: { posts: any }) {
     current,
     previous,
   }: {
-    current: any;
-    previous: any;
+    current: BlogPost;
+    previous: BlogPost;
   }) => {
-    const { title, date, description } = current.frontmatter;
-    const url = "/posts/" + getSlugFromPath(current.file);
+    const { title, date, description = "" } = current.data;
+    const url = "/posts/" + getSlugFromPath(current.id);
 
     const { year, displayDate, displayDateSmall } = getDateFormats(date);
-    const { year: prevYear = null } = previous ? getDateFormats(previous?.frontmatter?.date) : {};
+    const { year: prevYear = null } = previous ? getDateFormats(previous.data.date) : {};
 
     const color = year === CURR_YEAR_STRING ? "c-main" : "c-second";
 
@@ -67,8 +74,8 @@ export default function BlogList({ posts }: { posts: any }) {
     );
   };
 
-  const filterPosts = (entry: any) => {
-    const { title, date, description } = entry.frontmatter;
+  const filterPosts = (entry: BlogPost) => {
+    const { title, date, description } = entry.data;
     const { displayDate } = getDateFormats(date);
 
     return (title + displayDate + description)
@@ -85,9 +92,9 @@ export default function BlogList({ posts }: { posts: any }) {
         searchVal={search}
         isSticky={false}
       />
-      {posts
+      {props.posts
         .filter(filterPosts)
-        .map((entry: any, ind: number, arr: any) => ({
+        .map((entry, ind, arr) => ({
           current: entry,
           previous: arr[ind - 1] ?? null,
         }))

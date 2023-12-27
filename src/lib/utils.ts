@@ -9,7 +9,7 @@ export const getSlugFromBookTitle = (path: string): string => {
 };
 
 export function getDateFormats(
-  date: string | number,
+  date: string | number | Date,
   formatOverride?: string,
 ): {
   year: string;
