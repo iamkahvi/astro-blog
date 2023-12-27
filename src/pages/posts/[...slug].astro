@@ -1,12 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import { getSlugFromPath, getDateFormats } from "../../lib/utils";
 import Layout from "../../components/Layout.astro";
 
 export const getStaticPaths = async () => {
-  const allPosts = (await Astro.glob("../../content/posts/*.md")) as any;
+  const allPosts = await getCollection("posts");
 
-  const paths = allPosts.map((post: any) => {
-    const slug = getSlugFromPath(post.file);
+  const paths = allPosts.map((post) => {
+    const slug = getSlugFromPath(post.id);
 
     return {
       params: {
@@ -19,9 +20,10 @@ export const getStaticPaths = async () => {
   return paths;
 };
 
-const { post } = Astro.props as any;
-const { title, date, description } = post.frontmatter!;
-const { displayDate, displayDateSmall } = getDateFormats(date);
+const { post } = Astro.props;
+const { title, date, description = "" } = post.data;
+const { displayDate, displayDateSmall } = getDateFormats(date.toDateString());
+const { Content } = await post.render();
 ---
 
 <Layout title={title} description={description}>
@@ -37,6 +39,6 @@ const { displayDate, displayDateSmall } = getDateFormats(date);
     </p>
   </header>
   <div class="textBody">
-    <post.Content />
+    <Content />
   </div>
 </Layout>

@@ -1,30 +1,29 @@
 ---
+import { getCollection } from "astro:content";
 import { getSlugFromBookTitle, getDateFormats } from "../../lib/utils";
 import Layout from "../../components/Layout.astro";
 
 export const getStaticPaths = async () => {
-  const allJson = (await Astro.glob("../../content/highlights/*")) as any;
+  const allHighlights = await getCollection("highlights");
 
-  const paths = allJson.map((post: any) => {
-    const slug = getSlugFromBookTitle(post.default[0].book);
+  const paths = allHighlights.map((h) => {
+    const slug = getSlugFromBookTitle(h.id);
     console.log("SLUG:", slug);
 
     return {
       params: {
         slug,
       },
-      props: { highlights: post.default },
+      props: { highlights: h },
     };
   });
 
-  return paths as any;
+  return paths;
 };
 
-const { highlights } = Astro.props as any;
-
-const { book: bookTitle, author, dateAdded: epochSeconds } = highlights[0];
+const { highlights } = Astro.props;
+const { book: bookTitle, author, dateAdded: epochSeconds } = highlights.data[0];
 const title = `${bookTitle} Highlights`;
-
 const { displayDate, displayDateSmall } = getDateFormats(epochSeconds);
 ---
 
@@ -42,7 +41,7 @@ const { displayDate, displayDateSmall } = getDateFormats(epochSeconds);
     <div class="mb3">
       {`by ${author}`}
     </div>
-    {highlights.map((highlight: any) => {
+    {highlights.data.map((highlight: any) => {
       const {
         quote,
         location: { start, end },
