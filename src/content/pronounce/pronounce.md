@@ -1,5 +1,4 @@
 ---
-layout: content
 title: pronounce
 permalink: /pronounce/
 ---
@@ -19,6 +18,7 @@ Here are some phonetic references:
 - Kahvi as in a [covey of quails](https://www.google.com/search?q=define+covey):
 
 <img src="/assets/covey_of_quails.jpg" width="500rem"/>
+
 - Kahvi as in sh**ovey**
 - Kahvi as in **cov**enant
 - Kahvi as in **cu**bby (except instead of **b** it's a **v**)
