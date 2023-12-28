@@ -1,6 +1,41 @@
 ---
-const title = "Book Shelf";
+const title = "book shelf";
 ---
+
+<style>
+  .book-shelf-logo {
+    color: var(--c-main);
+    font-size: Min(6rem, calc(14vw));
+    height: 8rem;
+    border-radius: 0.5rem;
+
+    background-image: linear-gradient(
+        344deg,
+        var(--c-second) 13%,
+        rgba(255, 255, 255, 0) 71%
+      ),
+      radial-gradient(
+        ellipse at -120% 6%,
+        var(--c-third) 35%,
+        rgba(255, 255, 255, 0) 66%
+      ),
+      linear-gradient(13deg, var(--c-main) 40%, rgba(255, 255, 255, 0) 87%);
+  }
+
+  @media screen and (max-width: 30em) {
+    .book-shelf-logo {
+      font-size: Min(4rem, calc(17vw));
+      height: 6rem;
+      border-radius: 0;
+    }
+
+    .logo-container {
+      width: 100vw;
+      position: relative;
+      left: calc(-50vw + 50%);
+    }
+  }
+</style>
 
 <div class="logo-container">
   <a

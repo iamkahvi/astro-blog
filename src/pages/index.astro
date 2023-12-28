@@ -28,10 +28,6 @@ const sortedPosts = allPosts.sort(
 <Layout title={title} description={description}>
   <body>
     <BookListLogo />
-    <a
-      class="mb4 w-100 roboto flex items-center justify-center"
-      href={newsletterLink}>go to the newsletter HERE</a
-    >
     <BlogList posts={sortedPosts} client:load />
   </body>
 </Layout>

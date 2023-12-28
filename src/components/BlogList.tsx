@@ -83,7 +83,6 @@ export default function BlogList(props: Props) {
 
   return (
     <>
-
       <SearchBar
         handleSearch={handleSearch}
         placeholderText="search posts..."

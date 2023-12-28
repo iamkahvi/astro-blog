@@ -332,18 +332,6 @@ blockquote {
   .post-date-small {
     display: block;
   }
-
-  .book-shelf-logo {
-    font-size: 4rem;
-    height: 6rem;
-    border-radius: 0;
-  }
-
-  .logo-container {
-    width: 100vw;
-    position: relative;
-    left: calc(-50vw + 50%);
-  }
 }
 
 @media screen and (min-width: 30em) {

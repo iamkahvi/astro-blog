@@ -18,8 +18,8 @@ export default function SearchBar({
       onInput={handleSearch}
       placeholder={placeholderText}
       value={searchVal}
-      data-default=""
       className={`roboto mb3 f5 f4-ns normal ba br3 pa2  ${isSticky && "sticky"}`}
+      autocomplete="off"
     />
   );
 }
