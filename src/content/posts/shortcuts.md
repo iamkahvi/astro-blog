@@ -56,7 +56,7 @@ BUT keyboard shortcuts to navigate your OS do. Since I’m on Mac, this is a lis
 
 ## Shortcuts
 
-~~~~
+```
 Legend:
 ⌘ is the Command key
 ⌥ is the Option key
@@ -86,4 +86,4 @@ Text
 - Make Italic: ⌘ + i
 - Select Words:  ⌥ + ⇧ +  ← or →
 - Navigate Words: ⌥ +  ← or →
-~~~
+```

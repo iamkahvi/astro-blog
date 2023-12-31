@@ -1,6 +1,6 @@
 ---
 import "../styles/tachyons.css";
-import "../styles/style.css";
+import "../styles/global.css";
 import "../styles/links.css";
 import ColorThemeScript from "./ColorThemeScript.astro";
 
@@ -12,6 +12,19 @@ const descriptionStyle = "f6 roboto pt1 mt2 c-second";
 const themeToggleId = "color-theme-toggle";
 ---
 
+<style>
+  @media screen and (max-width: 30rem) {
+    .c-third {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 0.25rem;
+    }
+    .hide-mobile {
+      display: none;
+    }
+  }
+</style>
+
 <html lang="en">
   <head>
     <ColorThemeScript buttonId={themeToggleId} />
@@ -22,16 +35,27 @@ const themeToggleId = "color-theme-toggle";
   <body>
     <div class="w-90-ns mw7 mv4 center c-background">
       <header class="pa3">
-        <div class="flex items-center justify-between">
-          <p class="c-third">
-            <a href="/" class={navStyle.concat(" mr2")}> Home</a>
-             /
-            <a href="/book-shelf" class={navStyle.concat(" mh2")}>
-              Book Shelf</a
-            >
-             /
-            <a href="/about" class={navStyle.concat(" ml2")}> About</a>
-          </p>
+        <div class="flex items-center justify-between nav-bar">
+          <span class="c-third flex">
+            <p>
+              <a href="/" class={navStyle.concat(" mr2")}>home</a>
+               /
+              <a href="/book-shelf" class={navStyle.concat(" mh2")}>
+                book shelf</a
+              >
+              <span class="mr2 hide-mobile">/</span>
+            </p>
+            <p>
+              <a
+                href="https://www.newsletter.kahvipatel.com"
+                class={navStyle.concat(" mr2")}
+              >
+                newsletter</a
+              >
+               /
+              <a href="/about" class={navStyle.concat(" ml2")}>about</a>
+            </p>
+          </span>
           <button id={themeToggleId} class="bn br3 f4">🌚</button>
         </div>
         {

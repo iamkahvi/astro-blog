@@ -5,5 +5,10 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark-dimmed',
+    }
+  },
   integrations: [mdx(), preact()]
 });
