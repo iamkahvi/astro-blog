@@ -16,13 +16,17 @@ const siteMetadata = {
   },
 };
 
-const { title, description, newsletterLink } = siteMetadata;
+const { title, description } = siteMetadata;
 
 const allPosts = await getCollection("posts");
-const sortedPosts = allPosts.sort(
-  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
-);
-// .filter((p) => p.data?.published === true);
+const sortedPosts = allPosts
+  .sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+  )
+  .filter((p) => {
+    const published = p.data?.published ?? true;
+    return published;
+  });
 ---
 
 <Layout title={title} description={description}>
