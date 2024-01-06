@@ -22,6 +22,16 @@ const themeToggleId = "color-theme-toggle";
     .hide-mobile {
       display: none;
     }
+    .ml2 {
+      margin-left: 0.25rem;
+    }
+  }
+  .speaker {
+    transition: transform 0.1s linear; /* Smooth transition for the transform */
+    transform: scale(1);
+  }
+  .speaker:hover {
+    transform: scale(1.25);
   }
 </style>
 
@@ -62,10 +72,13 @@ const themeToggleId = "color-theme-toggle";
         {
           Astro.url.pathname === "/" && (
             <div>
-              <div class="mt4">
-                <h1 class="mb0 b helvetica underline f1">{title}</h1>
-                <p class={descriptionStyle}>{description}</p>
+              <div class="flex items-center mt4">
+                <h1 class="mb0 mt0 b helvetica underline f1">{title}</h1>
+                <a class="ml3 f4 pt2 no-hov speaker" href="/pronounce">
+                  🔈
+                </a>
               </div>
+              <p class={descriptionStyle}>{description}</p>
             </div>
           )
         }

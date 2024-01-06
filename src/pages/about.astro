@@ -1,8 +1,8 @@
 ---
 import Layout from "../components/Layout.astro";
-import { Content } from "../content/about/about.md";
+import { Content, frontmatter } from "../content/about/about.md";
 
-const title = "About Me";
+const { title } = frontmatter;
 ---
 
 <Layout title={title} description="">

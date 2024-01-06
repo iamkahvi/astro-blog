@@ -2,11 +2,11 @@
 title: pronounce
 permalink: /pronounce/
 ---
-## Congratulations! You have mispronounced my name.
+## How to pronounce "Kahvi"
 
-Don't worry, this is a *common mistake* and one I don't take any offense to.
+Don't worry, this is a *common query* and one I don't take any offense to.
 
-For future reference, my name is pronounced **KUH-vee** (*contrary to it's spelling* 🫠). Like
+My name is pronounced **KUH-vee** (*contrary to it's spelling* 🫠). Like
 
 <audio controls class="mb3">
   <source src="/assets/pronounce.mp3" type="audio/mpeg">

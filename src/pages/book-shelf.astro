@@ -5,10 +5,10 @@ import { getBookShelfData } from "../lib/source-contentful";
 
 const data = await getBookShelfData();
 
-const title = "My Book Shelf";
+const title = "my book shelf";
 ---
 
 <Layout title={data.title} description="">
   <h1 class="mt0">{title}</h1>
-  <BookList bookShelf={data} client:load />
+  <BookList bookShelf={data} client:idle />
 </Layout>
