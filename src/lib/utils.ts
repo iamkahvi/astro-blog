@@ -16,7 +16,13 @@ export function getDateFormats(
   displayDate: string;
   displayDateSmall: string;
 } {
-  const momentDate = moment(date);
+  let momentDate;
+  if (typeof date === "number") {
+    const epochDate = new Date(date*1000);
+    momentDate = moment(epochDate);
+  } else {
+    momentDate = moment(date);
+  }
 
   const year = momentDate.format("YYYY");
   const displayDate = momentDate.format(formatOverride || "MMMM Do, YYYY");
