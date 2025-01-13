@@ -2,7 +2,7 @@
 title: "personal statement"
 description: for law school
 date: 2023-11-09
-published: true
+published: false 
 ---
 
 <html>
