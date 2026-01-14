@@ -1,0 +1,24 @@
+[
+  {
+    "book": " Stoner",
+    "author": "John Williams",
+    "quote": "\"Maybe I do,\" Masters said. \"But bad as we are, we're better than those on the outside, in the muck, the poor bastards of the world. We do no harm, we say what we want, and we get paid for it; and that's a triumph of natural virtue, or pretty damn close to it.\"",
+    "page": 41,
+    "location": {
+      "start": 597,
+      "end": 599
+    },
+    "dateAdded": 1751127452
+  },
+  {
+    "book": " Stoner",
+    "author": "John Williams",
+    "quote": "He spoke more confidently and felt a warm hard severity gather within him. He suspected that he was beginning, ten years late, to discover who he was; and the figure he saw was both more and less than he had once imagined it to be.",
+    "page": 120,
+    "location": {
+      "start": 1734,
+      "end": 1736
+    },
+    "dateAdded": 1751245113
+  }
+]
