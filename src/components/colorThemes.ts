@@ -1,4 +1,11 @@
-export const themeMap = {
+export type ThemeColors = {
+  "--c-main": string;
+  "--c-second": string;
+  "--c-third": string;
+  "--c-background": string;
+};
+
+export const themeMap: Record<string, ThemeColors> = {
   classic: {
     "--c-main": "#ff8552",
     "--c-second": "#297373",

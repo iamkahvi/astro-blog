@@ -1,4 +1,4 @@
-import { themeMap } from "../components/colorThemes.mjs";
+import { themeMap } from "../components/colorThemes.ts";
 
 export enum Themes {
   Classic = "classic",
@@ -40,7 +40,7 @@ export const setRootStyles = (theme: Themes) => {
     root.style.setProperty(k, v);
 
     // Ugly fix for selection color
-    if (k == "--c-main") {
+    if (k === "--c-main") {
       root.style.setProperty("--c-main-selection", v + "50");
     }
   });

@@ -17,9 +17,6 @@ export default function BlogList(props: Props) {
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     setSearch(e.currentTarget.value);
-    // if (e.target.value.toLowerCase() === "mama") {
-    //   navigate("/mothersday", { state: { isAuth: true } });
-    // }
   };
 
   const renderPost = ({
