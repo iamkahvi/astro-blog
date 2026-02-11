@@ -1,4 +1,4 @@
-import { themeMap } from "../components/colorThemes.mjs";
+import { themeMap } from "../components/colorThemes";
 
 export enum Themes {
   Classic = "classic",
@@ -16,11 +16,9 @@ export const getCurrentColorTheme = () => {
 };
 
 export const getInitialColorMode: () => Themes = () => {
-  const persistedColorPreference = window.localStorage.getItem("color-theme");
-  const hasPersistedPreference = typeof persistedColorPreference === "string";
-
-  if (hasPersistedPreference) {
-    return persistedColorPreference as Themes;
+  const currentTheme = getCurrentColorTheme();
+  if (currentTheme) {
+    return currentTheme;
   }
 
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
@@ -40,7 +38,7 @@ export const setRootStyles = (theme: Themes) => {
     root.style.setProperty(k, v);
 
     // Ugly fix for selection color
-    if (k == "--c-main") {
+    if (k === "--c-main") {
       root.style.setProperty("--c-main-selection", v + "50");
     }
   });

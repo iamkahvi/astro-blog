@@ -94,6 +94,10 @@ export async function fetchGraphQL(
     },
   );
 
+  if (!response.ok) {
+    throw new Error(`Contentful API error: ${response.status} ${response.statusText}`);
+  }
+
   return await response.json();
 }
 
@@ -112,12 +116,29 @@ export interface BookNode {
 }
 
 export async function getBookShelfData(): Promise<BookShelfData> {
+  if (!import.meta.env.BOOK_SHELF_ID) {
+    throw new Error("BOOK_SHELF_ID environment variable is not set");
+  }
+
   const { data } = await fetchGraphQL(BOOK_SHELF_DATA_QUERY);
 
-  const { title, intro, bookListCollection } = data.bookShelf!;
-  const introHtml = documentToHtmlString(intro!.json, RENDER_OPTIONS);
+  if (!data?.bookShelf) {
+    throw new Error("No bookShelf data returned from Contentful");
+  }
 
-  const books = (bookListCollection!.items as BookListItem[]).map(
+  const { title, intro, bookListCollection } = data.bookShelf;
+
+  if (!intro?.json) {
+    throw new Error("BookShelf intro content is missing");
+  }
+
+  if (!bookListCollection?.items) {
+    throw new Error("BookShelf book list is missing");
+  }
+
+  const introHtml = documentToHtmlString(intro.json, RENDER_OPTIONS);
+
+  const books = (bookListCollection.items as BookListItem[]).map(
     (bookItem) => {
       const {
         bookTitle: title,
@@ -127,10 +148,9 @@ export async function getBookShelfData(): Promise<BookShelfData> {
       } = bookItem;
 
       const { year, displayDate } = getDateFormats(dateFinished, "DD/MM/YYYY");
-      const descriptionHtml = documentToHtmlString(
-        bookDescription!.json,
-        RENDER_OPTIONS,
-      );
+      const descriptionHtml = bookDescription?.json
+        ? documentToHtmlString(bookDescription.json, RENDER_OPTIONS)
+        : "";
 
       return {
         title,
@@ -143,7 +163,7 @@ export async function getBookShelfData(): Promise<BookShelfData> {
   );
 
   return {
-    title: title!,
+    title,
     introHtml,
     books,
   };

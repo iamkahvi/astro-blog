@@ -17,9 +17,6 @@ export default function BlogList(props: Props) {
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     setSearch(e.currentTarget.value);
-    // if (e.target.value.toLowerCase() === "mama") {
-    //   navigate("/mothersday", { state: { isAuth: true } });
-    // }
   };
 
   const renderPost = ({
@@ -54,12 +51,7 @@ export default function BlogList(props: Props) {
             >
               {title}
             </a>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: description,
-              }}
-              className="f6 fw4 roboto c-second"
-            />
+            <p className="f6 fw4 roboto c-second">{description}</p>
           </h3>
           <small className="post-date f5 roboto c-second fr tr w-third">
             {displayDate}
