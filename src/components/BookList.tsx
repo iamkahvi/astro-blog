@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import type { JSX } from 'preact'
 
 import SearchBar from './SearchBar'
@@ -15,6 +15,12 @@ interface Props {
 export default function BookList(props: Props) {
   const [search, setSearch] = useState("");
   const { books, introHtml } = props.bookShelf;
+
+  useEffect(() => {
+    if (window.location.hash) {
+      document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+    }
+  }, []);
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     setSearch(e.currentTarget.value);
@@ -42,7 +48,7 @@ export default function BookList(props: Props) {
           <div className="mb2">
             <a
               className="book anchor c-second b"
-              href={`/book-shelf#${idLink}`}
+              href={`#${idLink}`}
             >
               <span className="fw5">{title}</span>
             </a>
