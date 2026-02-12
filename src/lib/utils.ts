@@ -27,21 +27,21 @@ export function getDateFormats(
   displayDateSmall: string;
 } {
   const d = parseDate(date);
-  const year = d.getFullYear().toString();
+  const year = d.getUTCFullYear().toString();
 
   let displayDate: string;
   if (formatOverride === "DD/MM/YYYY") {
-    const dd = String(d.getDate()).padStart(2, "0");
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    displayDate = `${dd}/${mm}/${d.getFullYear()}`;
+    const dd = String(d.getUTCDate()).padStart(2, "0");
+    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+    displayDate = `${dd}/${mm}/${d.getUTCFullYear()}`;
   } else {
     displayDate = d
-      .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+      .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })
       .replace(/(\d+),/, (_, n) => ordinal(parseInt(n)) + ",");
   }
 
   const displayDateSmall = d
-    .toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    .toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })
     .replace(",", "");
 
   return { year, displayDate, displayDateSmall };
