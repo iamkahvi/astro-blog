@@ -5,6 +5,9 @@ import SearchBar from './SearchBar'
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/source-contentful";
 
+// Books before 2019 don't have reliable finish dates
+const EARLIEST_YEAR_WITH_FINISH_DATE = 2019;
+
 interface Props {
   bookShelf: BookShelfData;
 }
@@ -13,22 +16,11 @@ export default function BookList(props: Props) {
   const [search, setSearch] = useState("");
   const { books, introHtml } = props.bookShelf;
 
-  // useEffect(() => {
-  //   console.log(search);
-  //   // Get the current search parameters
-  //   const urlSearchParams = new URLSearchParams();
-
-  //   // Update a search parameter or add a new one
-  //   urlSearchParams.set('search', search);
-
-  //   console.log(urlSearchParams.toString());
-
-  //   // Create a new URL with the updated search parameters
-  //   const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
-
-  //   // Use history.pushState to update the URL without a page reload
-  //   window.history.pushState({}, '', updatedUrl);
-  // }, [search]);
+  useEffect(() => {
+    if (window.location.hash) {
+      document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+    }
+  }, []);
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
     setSearch(e.currentTarget.value);
@@ -56,12 +48,12 @@ export default function BookList(props: Props) {
           <div className="mb2">
             <a
               className="book anchor c-second b"
-              href={`/book-shelf#${idLink}`}
+              href={`#${idLink}`}
             >
               <span className="fw5">{title}</span>
             </a>
             by {author}
-            {parseInt(year) > 2018 && <em> - {dateFinished} </em>}
+            {parseInt(year) >= EARLIEST_YEAR_WITH_FINISH_DATE && <em> - {dateFinished} </em>}
           </div>
           <div
             dangerouslySetInnerHTML={{

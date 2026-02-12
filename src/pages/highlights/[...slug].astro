@@ -8,7 +8,6 @@ export const getStaticPaths = async () => {
 
   const paths = allHighlights.map((h) => {
     const slug = getSlugFromBookTitle(h.id);
-    console.log("SLUG:", slug);
 
     return {
       params: {
@@ -22,6 +21,9 @@ export const getStaticPaths = async () => {
 };
 
 const { highlights } = Astro.props;
+if (!highlights.data.length) {
+  return Astro.redirect("/404");
+}
 const { book: bookTitle, author, dateAdded: epochSeconds } = highlights.data[0];
 const title = `${bookTitle} Highlights`;
 const { displayDate, displayDateSmall } = getDateFormats(epochSeconds);

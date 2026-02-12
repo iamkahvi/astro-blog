@@ -27,7 +27,7 @@ There was a crack from across the parking lot. I glanced to where it had come fr
 
 One of the men spotted us. He started walking in our direction.
 
-    I stood still. I was tired. I was annoyed. I was also angry.
+I stood still. I was tired. I was annoyed. I was also angry.
 
 “WHAT DO YOU THINK YOU’RE DOING”
 
