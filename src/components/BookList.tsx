@@ -3,7 +3,7 @@ import type { JSX } from 'preact'
 
 import SearchBar from './SearchBar'
 import { yearMap } from "../lib/utils";
-import type { BookShelfData, BookNode } from "../lib/source-contentful";
+import type { BookShelfData, BookNode } from "../lib/types";
 
 // Books before 2019 don't have reliable finish dates
 const EARLIEST_YEAR_WITH_FINISH_DATE = 2019;
