@@ -3,6 +3,20 @@
   "introHtml": "<p>I enjoy reading books<b> </b>but I often forget what I&#39;ve read weeks or months afterwards. This list is an effort to remember what I&#39;ve read and can hopefully help others find a good book. </p><p>This page will be updated continuously.</p>",
   "books": [
     {
+      "title": "The Left Hand of Darkness",
+      "author": "Ursula K. Le Guin",
+      "dateFinished": "12/01/2026",
+      "descriptionHtml": "The book that Carol was reading <a href=\"https://www.reddit.com/r/pluribustv/comments/1pwlxnj/carol_reading_the_left_hand_of_darkness_in_ep_9/\">in Pluribus</a>. Super interesting, if a bit slow at first. The world is so alien that it takes a second to imagine it.",
+      "year": "2026"
+    },
+    {
+      "title": "Excession",
+      "author": "Iain Banks",
+      "dateFinished": "22/12/2025",
+      "descriptionHtml": "One of The Culture series. Interesting read on how a society of all-powerful ship minds would deal with a foreign object that doesn't obey the laws of physics.",
+      "year": "2025"
+    },
+    {
       "title": "Jurassic Park",
       "author": "Michael Crichton",
       "dateFinished": "16/08/2025",
