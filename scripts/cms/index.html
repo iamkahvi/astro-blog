@@ -226,6 +226,76 @@
 
     .count { color: #666; font-weight: normal; font-size: 0.9rem; }
 
+    .lookup-wrap {
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+
+    .lookup-wrap input {
+      width: 100%;
+      padding: 0.5rem;
+      padding-right: 2.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .lookup-spinner {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: #888;
+      display: none;
+    }
+
+    .lookup-results {
+      position: absolute;
+      z-index: 10;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      display: none;
+    }
+
+    .lookup-results[data-visible="true"] { display: block; }
+
+    .lookup-result {
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .lookup-result:last-child { border-bottom: none; }
+
+    .lookup-result:hover,
+    .lookup-result[aria-selected="true"] { background: #e8f0fe; }
+
+    .lookup-result-info { flex: 1; min-width: 0; }
+
+    .lookup-result-title { font-weight: 600; }
+
+    .lookup-result-author { font-size: 0.85rem; color: #666; }
+
+    .lookup-result-year { font-size: 0.8rem; color: #999; }
+
+    .lookup-hint {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 0.15rem;
+    }
+
     @media (prefers-color-scheme: dark) {
       body { background: #1a1a1a; color: #e5e5e5; }
       input[type="text"], input[type="date"], textarea { background: #2a2a2a; color: #e5e5e5; border-color: #555; }
@@ -241,6 +311,12 @@
       .year-heading { color: #aaa; border-color: #444; }
       .btn-secondary, .btn-edit { background: #444; color: #e5e5e5; }
       .btn-secondary:hover, .btn-edit:hover { background: #555; }
+      .lookup-results { background: #2a2a2a; border-color: #555; }
+      .lookup-result { border-color: #444; }
+      .lookup-result:hover, .lookup-result[aria-selected="true"] { background: #333; }
+      .lookup-result-author { color: #aaa; }
+      .lookup-result-year { color: #777; }
+      .lookup-hint { color: #777; }
     }
   </style>
 </head>
@@ -261,6 +337,28 @@
   <section id="form-section" aria-labelledby="form-heading">
     <h2 id="form-heading">Add a Book</h2>
     <form id="book-form" novalidate>
+      <label for="book-lookup">Look up a book (optional)</label>
+      <div class="lookup-wrap">
+        <input
+          type="text"
+          id="book-lookup"
+          placeholder="Search by title or author..."
+          autocomplete="off"
+          role="combobox"
+          aria-expanded="false"
+          aria-controls="lookup-results"
+          aria-autocomplete="list"
+        >
+        <span class="lookup-spinner" id="lookup-spinner" aria-hidden="true">...</span>
+        <div
+          class="lookup-results"
+          id="lookup-results"
+          role="listbox"
+          aria-label="Book search results"
+        ></div>
+      </div>
+      <p class="lookup-hint">Type to search Open Library. Select a result to fill title and author.</p>
+
       <label for="field-title">Title <span aria-hidden="true">*</span></label>
       <input type="text" id="field-title" required aria-required="true">
 
@@ -308,6 +406,9 @@
     let books = [];
     let editingIndex = null;
     let htmlSourceVisible = false;
+    let lookupTimer = null;
+    let lookupActiveIndex = -1;
+    let lookupResults = [];
 
     const form = document.getElementById("book-form");
     const titleInput = document.getElementById("field-title");
@@ -534,6 +635,115 @@
       d.textContent = s;
       return d.innerHTML;
     }
+
+    // Book lookup via Open Library
+    const lookupInput = document.getElementById("book-lookup");
+    const lookupResultsEl = document.getElementById("lookup-results");
+    const lookupSpinner = document.getElementById("lookup-spinner");
+
+    function showLookupResults(show) {
+      lookupResultsEl.setAttribute("data-visible", show ? "true" : "false");
+      lookupInput.setAttribute("aria-expanded", show ? "true" : "false");
+    }
+
+    async function searchOpenLibrary(query) {
+      const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=6&fields=title,author_name,first_publish_year,key`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return (data.docs || []).map((doc) => ({
+        title: doc.title || "",
+        author: (doc.author_name || []).join(", "),
+        year: doc.first_publish_year || "",
+      }));
+    }
+
+    function renderLookupResults() {
+      if (lookupResults.length === 0) {
+        lookupResultsEl.innerHTML = `<div style="padding:0.5rem 0.75rem;color:#888;">No results found.</div>`;
+        showLookupResults(true);
+        return;
+      }
+
+      lookupResultsEl.innerHTML = lookupResults.map((r, i) => `
+        <div
+          class="lookup-result"
+          role="option"
+          id="lookup-opt-${i}"
+          aria-selected="${i === lookupActiveIndex}"
+          data-index="${i}"
+        >
+          <div class="lookup-result-info">
+            <div class="lookup-result-title">${esc(r.title)}</div>
+            <div class="lookup-result-author">${esc(r.author)}</div>
+          </div>
+          ${r.year ? `<div class="lookup-result-year">${esc(String(r.year))}</div>` : ""}
+        </div>
+      `).join("");
+      showLookupResults(true);
+    }
+
+    function selectLookupResult(index) {
+      const r = lookupResults[index];
+      if (!r) return;
+      titleInput.value = r.title;
+      authorInput.value = r.author;
+      lookupInput.value = "";
+      lookupResults = [];
+      lookupActiveIndex = -1;
+      showLookupResults(false);
+      dateInput.focus();
+    }
+
+    lookupInput.addEventListener("input", () => {
+      const q = lookupInput.value.trim();
+      clearTimeout(lookupTimer);
+      lookupActiveIndex = -1;
+
+      if (q.length < 2) {
+        showLookupResults(false);
+        lookupSpinner.style.display = "none";
+        return;
+      }
+
+      lookupSpinner.style.display = "inline";
+      lookupTimer = setTimeout(async () => {
+        lookupResults = await searchOpenLibrary(q);
+        lookupSpinner.style.display = "none";
+        renderLookupResults();
+      }, 350);
+    });
+
+    lookupInput.addEventListener("keydown", (e) => {
+      if (!lookupResults.length) return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        lookupActiveIndex = Math.min(lookupActiveIndex + 1, lookupResults.length - 1);
+        renderLookupResults();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        lookupActiveIndex = Math.max(lookupActiveIndex - 1, 0);
+        renderLookupResults();
+      } else if (e.key === "Enter" && lookupActiveIndex >= 0) {
+        e.preventDefault();
+        selectLookupResult(lookupActiveIndex);
+      } else if (e.key === "Escape") {
+        showLookupResults(false);
+      }
+    });
+
+    lookupResultsEl.addEventListener("click", (e) => {
+      const el = e.target.closest(".lookup-result");
+      if (el) selectLookupResult(parseInt(el.dataset.index));
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".lookup-wrap")) {
+        showLookupResults(false);
+      }
+    });
 
     loadBooks();
   </script>
