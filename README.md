@@ -39,7 +39,14 @@ A lightweight local web UI for editing `src/data/book-shelf.json` directly. Add,
 bun run cms
 ```
 
-Then open http://localhost:4321. Changes are written to `src/data/book-shelf.json` on save.
+Then open http://localhost:4444. Changes are written to `src/data/book-shelf.json` on save.
+
+Features:
+- Add, edit, and delete books
+- Rich text editor for book descriptions (bold, italic, blockquote, links)
+- Book lookup via [Open Library](https://openlibrary.org/) — type in the search field to find a book and auto-populate title and author
+- Page metadata editing (title and intro HTML)
+- Dark mode support
 
 ## Built With
 * [Astro](https://docs.astro.build/en/getting-started/)
