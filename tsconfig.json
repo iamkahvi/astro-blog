@@ -6,5 +6,6 @@
     "strictNullChecks": true,
     "allowJs": true,
     "verbatimModuleSyntax": true,
-  }
+  },
+  "exclude": ["scripts"]
 }
