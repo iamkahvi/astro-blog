@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Shelf CMS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      color: #1a1a1a;
+      background: #fafafa;
+      line-height: 1.5;
+    }
+
+    h1 { margin-top: 0; }
+    h2 { margin-top: 2rem; }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus,
+    [contenteditable]:focus {
+      outline: 2px solid #2563eb;
+      outline-offset: 1px;
+    }
+
+    textarea { resize: vertical; }
+
+    .editor-wrap {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      gap: 2px;
+      padding: 4px;
+      background: #eee;
+      border-bottom: 1px solid #ccc;
+      flex-wrap: wrap;
+    }
+
+    .editor-toolbar button {
+      padding: 4px 8px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      min-width: 32px;
+    }
+
+    .editor-toolbar button:hover { background: #e0e0e0; }
+
+    .editor-content {
+      min-height: 120px;
+      padding: 0.5rem;
+      background: #fff;
+    }
+
+    .editor-content blockquote {
+      border-left: 3px solid #ccc;
+      margin: 0.5em 0;
+      padding-left: 0.75em;
+      color: #555;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    button[type="submit"],
+    .btn-primary {
+      padding: 0.5rem 1.25rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover,
+    .btn-primary:hover { background: #1d4ed8; }
+
+    .btn-secondary {
+      padding: 0.5rem 1.25rem;
+      background: #e5e7eb;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover { background: #d1d5db; }
+
+    .btn-danger {
+      padding: 0.25rem 0.75rem;
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .btn-danger:hover { background: #b91c1c; }
+
+    .btn-edit {
+      padding: 0.25rem 0.75rem;
+      background: #e5e7eb;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .btn-edit:hover { background: #d1d5db; }
+
+    .book-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: #fff;
+    }
+
+    .book-item h3 { margin: 0 0 0.25rem; }
+
+    .book-meta {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-description {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .book-description blockquote {
+      border-left: 3px solid #ccc;
+      margin: 0.5em 0;
+      padding-left: 0.75em;
+      color: #555;
+    }
+
+    .book-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .year-heading {
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: #666;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.25rem;
+    }
+
+    .toggle-html {
+      font-size: 0.8rem;
+      color: #2563eb;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 4px;
+    }
+
+    .toggle-html:hover { text-decoration: underline; }
+
+    .html-source {
+      margin-top: 0.25rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    .status {
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .status-success { background: #dcfce7; color: #166534; }
+    .status-error { background: #fee2e2; color: #991b1b; }
+
+    details {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .count { color: #666; font-weight: normal; font-size: 0.9rem; }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #1a1a1a; color: #e5e5e5; }
+      input[type="text"], input[type="date"], textarea { background: #2a2a2a; color: #e5e5e5; border-color: #555; }
+      .editor-toolbar { background: #333; border-color: #555; }
+      .editor-toolbar button { background: #444; color: #e5e5e5; border-color: #555; }
+      .editor-toolbar button:hover { background: #555; }
+      .editor-content { background: #2a2a2a; color: #e5e5e5; }
+      .editor-content blockquote { color: #aaa; }
+      .book-item { background: #2a2a2a; border-color: #444; }
+      .book-meta { color: #aaa; }
+      .book-description { color: #ccc; }
+      .book-description blockquote { color: #aaa; }
+      .year-heading { color: #aaa; border-color: #444; }
+      .btn-secondary, .btn-edit { background: #444; color: #e5e5e5; }
+      .btn-secondary:hover, .btn-edit:hover { background: #555; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Book Shelf Editor</h1>
+
+  <details id="meta-section">
+    <summary>Page metadata (title &amp; intro)</summary>
+    <label for="meta-title">Page Title</label>
+    <input type="text" id="meta-title">
+    <label for="meta-intro">Intro HTML</label>
+    <textarea id="meta-intro" rows="3"></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="saveMeta()">Save Metadata</button>
+    </div>
+  </details>
+
+  <section id="form-section" aria-labelledby="form-heading">
+    <h2 id="form-heading">Add a Book</h2>
+    <form id="book-form" novalidate>
+      <label for="field-title">Title <span aria-hidden="true">*</span></label>
+      <input type="text" id="field-title" required aria-required="true">
+
+      <label for="field-author">Author <span aria-hidden="true">*</span></label>
+      <input type="text" id="field-author" required aria-required="true">
+
+      <label for="field-date">Date Finished <span aria-hidden="true">*</span></label>
+      <input type="date" id="field-date" required aria-required="true">
+
+      <label id="desc-label">Description</label>
+      <div class="editor-wrap">
+        <div class="editor-toolbar" role="toolbar" aria-label="Formatting">
+          <button type="button" onclick="execFmt('bold')" title="Bold"><b>B</b></button>
+          <button type="button" onclick="execFmt('italic')" title="Italic"><i>I</i></button>
+          <button type="button" onclick="insertBlockquote()" title="Blockquote">&ldquo;</button>
+          <button type="button" onclick="insertLink()" title="Insert link">Link</button>
+        </div>
+        <div
+          class="editor-content"
+          id="field-description"
+          contenteditable="true"
+          role="textbox"
+          aria-multiline="true"
+          aria-labelledby="desc-label"
+        ></div>
+      </div>
+      <button type="button" class="toggle-html" onclick="toggleHtmlSource()">Toggle HTML source</button>
+      <textarea class="html-source" id="html-source" rows="4" hidden></textarea>
+
+      <div class="btn-row">
+        <button type="submit">Add Book</button>
+        <button type="button" class="btn-secondary" id="cancel-btn" hidden onclick="cancelEdit()">Cancel</button>
+      </div>
+
+      <div id="form-status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section aria-labelledby="list-heading">
+    <h2 id="list-heading">Books <span class="count" id="book-count"></span></h2>
+    <div id="book-list"></div>
+  </section>
+
+  <script>
+    let books = [];
+    let editingIndex = null;
+    let htmlSourceVisible = false;
+
+    const form = document.getElementById("book-form");
+    const titleInput = document.getElementById("field-title");
+    const authorInput = document.getElementById("field-author");
+    const dateInput = document.getElementById("field-date");
+    const descEditor = document.getElementById("field-description");
+    const htmlSource = document.getElementById("html-source");
+    const cancelBtn = document.getElementById("cancel-btn");
+    const formHeading = document.getElementById("form-heading");
+    const formStatus = document.getElementById("form-status");
+    const bookList = document.getElementById("book-list");
+    const bookCount = document.getElementById("book-count");
+
+    // Date conversion
+    function toDisplayDate(iso) {
+      const [y, m, d] = iso.split("-");
+      return `${d}/${m}/${y}`;
+    }
+
+    function toISODate(display) {
+      const [d, m, y] = display.split("/");
+      return `${y}-${m}-${d}`;
+    }
+
+    function yearFromDisplay(display) {
+      return display.split("/")[2];
+    }
+
+    // Editor commands
+    function execFmt(cmd) {
+      document.execCommand(cmd, false, null);
+      descEditor.focus();
+    }
+
+    function insertBlockquote() {
+      const sel = window.getSelection();
+      if (!sel.rangeCount) return;
+      const range = sel.getRangeAt(0);
+      const bq = document.createElement("blockquote");
+      const p = document.createElement("p");
+      range.surroundContents(p);
+      p.parentNode.insertBefore(bq, p);
+      bq.appendChild(p);
+      descEditor.focus();
+    }
+
+    function insertLink() {
+      const url = prompt("URL:");
+      if (url) document.execCommand("createLink", false, url);
+      descEditor.focus();
+    }
+
+    function toggleHtmlSource() {
+      htmlSourceVisible = !htmlSourceVisible;
+      if (htmlSourceVisible) {
+        htmlSource.value = descEditor.innerHTML;
+        htmlSource.hidden = false;
+      } else {
+        descEditor.innerHTML = htmlSource.value;
+        htmlSource.hidden = true;
+      }
+    }
+
+    // Sync HTML source if visible
+    descEditor.addEventListener("input", () => {
+      if (htmlSourceVisible) htmlSource.value = descEditor.innerHTML;
+    });
+
+    htmlSource.addEventListener("input", () => {
+      descEditor.innerHTML = htmlSource.value;
+    });
+
+    function getDescriptionHtml() {
+      if (htmlSourceVisible) {
+        return htmlSource.value.trim();
+      }
+      return descEditor.innerHTML.trim();
+    }
+
+    // Status messages
+    function showStatus(msg, type) {
+      formStatus.textContent = msg;
+      formStatus.className = `status status-${type}`;
+      if (type === "success") {
+        setTimeout(() => { formStatus.textContent = ""; formStatus.className = ""; }, 3000);
+      }
+    }
+
+    // API calls
+    async function loadBooks() {
+      const res = await fetch("/api/books");
+      const data = await res.json();
+      books = data.books;
+
+      document.getElementById("meta-title").value = data.title;
+      document.getElementById("meta-intro").value = data.introHtml;
+
+      renderBooks();
+    }
+
+    async function saveMeta() {
+      const title = document.getElementById("meta-title").value;
+      const introHtml = document.getElementById("meta-intro").value;
+      await fetch("/api/meta", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, introHtml }),
+      });
+      showStatus("Metadata saved.", "success");
+    }
+
+    // Form handling
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const title = titleInput.value.trim();
+      const author = authorInput.value.trim();
+      const dateVal = dateInput.value;
+
+      if (!title || !author || !dateVal) {
+        showStatus("Please fill in all required fields.", "error");
+        return;
+      }
+
+      const book = {
+        title,
+        author,
+        dateFinished: toDisplayDate(dateVal),
+        descriptionHtml: getDescriptionHtml(),
+        year: dateVal.split("-")[0],
+      };
+
+      if (editingIndex !== null) {
+        await fetch(`/api/books/${editingIndex}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(book),
+        });
+        showStatus(`Updated "${title}".`, "success");
+        editingIndex = null;
+        formHeading.textContent = "Add a Book";
+        cancelBtn.hidden = true;
+        form.querySelector('[type="submit"]').textContent = "Add Book";
+      } else {
+        await fetch("/api/books", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(book),
+        });
+        showStatus(`Added "${title}".`, "success");
+      }
+
+      form.reset();
+      descEditor.innerHTML = "";
+      if (htmlSourceVisible) htmlSource.value = "";
+      await loadBooks();
+    });
+
+    function cancelEdit() {
+      editingIndex = null;
+      formHeading.textContent = "Add a Book";
+      cancelBtn.hidden = true;
+      form.querySelector('[type="submit"]').textContent = "Add Book";
+      form.reset();
+      descEditor.innerHTML = "";
+      if (htmlSourceVisible) htmlSource.value = "";
+      formStatus.textContent = "";
+      formStatus.className = "";
+    }
+
+    function editBook(index) {
+      const book = books[index];
+      editingIndex = index;
+      titleInput.value = book.title;
+      authorInput.value = book.author;
+      dateInput.value = toISODate(book.dateFinished);
+      descEditor.innerHTML = book.descriptionHtml;
+      if (htmlSourceVisible) htmlSource.value = book.descriptionHtml;
+      formHeading.textContent = `Edit: ${book.title}`;
+      cancelBtn.hidden = false;
+      form.querySelector('[type="submit"]').textContent = "Update Book";
+      formHeading.scrollIntoView({ behavior: "smooth" });
+      titleInput.focus();
+    }
+
+    async function deleteBook(index) {
+      const book = books[index];
+      if (!confirm(`Delete "${book.title}" by ${book.author}?`)) return;
+      await fetch(`/api/books/${index}`, { method: "DELETE" });
+      showStatus(`Deleted "${book.title}".`, "success");
+      if (editingIndex === index) cancelEdit();
+      await loadBooks();
+    }
+
+    // Render
+    function renderBooks() {
+      bookCount.textContent = `(${books.length})`;
+      let html = "";
+      let lastYear = null;
+
+      for (let i = 0; i < books.length; i++) {
+        const b = books[i];
+        if (b.year !== lastYear) {
+          lastYear = b.year;
+          html += `<div class="year-heading">${b.year}</div>`;
+        }
+        html += `
+          <div class="book-item">
+            <h3>${esc(b.title)}</h3>
+            <div class="book-meta">${esc(b.author)} &mdash; ${esc(b.dateFinished)}</div>
+            ${b.descriptionHtml ? `<div class="book-description">${b.descriptionHtml}</div>` : ""}
+            <div class="book-actions">
+              <button class="btn-edit" onclick="editBook(${i})">Edit</button>
+              <button class="btn-danger" onclick="deleteBook(${i})">Delete</button>
+            </div>
+          </div>`;
+      }
+
+      bookList.innerHTML = html;
+    }
+
+    function esc(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    loadBooks();
+  </script>
+</body>
+</html>

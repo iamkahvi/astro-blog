@@ -32,6 +32,15 @@ To refresh the data:
 
 This rewrites `src/data/book-shelf.json` with the latest Contentful content.
 
+## Book shelf CMS (local editor)
+A lightweight local web UI for editing `src/data/book-shelf.json` directly. Add, edit, and delete books without touching the JSON by hand.
+
+```sh
+bun run cms
+```
+
+Then open http://localhost:4321. Changes are written to `src/data/book-shelf.json` on save.
+
 ## Built With
 * [Astro](https://docs.astro.build/en/getting-started/)
 * [Tachyons](https://tachyons.io/)

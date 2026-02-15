@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "deploy": "wrangler pages deploy dist/",
     "export:books": "bun scripts/export-book-shelf.ts",
+    "cms": "bun scripts/cms/server.ts",
     "astro": "astro"
   },
   "dependencies": {
