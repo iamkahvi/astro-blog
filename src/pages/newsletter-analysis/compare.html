@@ -67,7 +67,7 @@
   <h1>kahvi's newsletter analysis</h1>
   <p style="color: #8b949e; margin-bottom: 8px;">Year-over-year comparison (yearly totals + monthly averages, superimposed)</p>
   <div style="margin-bottom: 16px;">
-    <a href="./index.html" style="color: #8b949e; text-decoration: none; font-size: 13px;">← Back to overview</a>
+    <a href="/newsletter-analysis" style="color: #8b949e; text-decoration: none; font-size: 13px;">← Back to overview</a>
   </div>
 
   <div class="legend-note">Most recent year uses the accent color and thicker line weight.</div>
@@ -374,7 +374,7 @@
     async function main() {
       let data = null;
       try {
-        const res = await fetch('./analysis.json');
+        const res = await fetch('/newsletter-analysis/analysis.json');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         data = await res.json();
       } catch (e) {
