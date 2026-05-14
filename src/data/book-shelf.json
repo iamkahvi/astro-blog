@@ -3,6 +3,27 @@
   "introHtml": "<p>I enjoy reading books<b> </b>but I often forget what I&#39;ve read weeks or months afterwards. This list is an effort to remember what I&#39;ve read and can hopefully help others find a good book. </p><p>This page will be updated continuously.</p>",
   "books": [
     {
+      "title": "The Sense of an Ending",
+      "author": "Julian Barnes",
+      "dateFinished": "25/04/2026",
+      "descriptionHtml": "Odd book. Pretty crazy twist at the end that I did not see coming.&nbsp;",
+      "year": "2026"
+    },
+    {
+      "title": "Family of Spies",
+      "author": "Christine Kuehn",
+      "dateFinished": "25/04/2026",
+      "descriptionHtml": "<div>What a crazy story! This lady's grandfather was a big-deal Nazi and she only found out 80 years later.&nbsp;</div><div><br></div><div>Also includes a detailed overview of how Hitler came to power in Germany - following the grandfather and his family through all of it is quite engaging.</div>",
+      "year": "2026"
+    },
+    {
+      "title": "Salt Fat Acid Heat",
+      "author": "Samin Nosrat",
+      "dateFinished": "16/04/2026",
+      "descriptionHtml": "<div>What a wonderful cookbook this is.&nbsp;</div><div><br></div><div>I've only read through the first \"theory\" part, but I don't want to read through every recipe in the latter half of the book before writing this blurb.</div><div><br></div><div>I love the framing of the four elements. Some takeaways:</div><div>- Don't forget the <i>acid!<br></i>- You basically always want a <i>sizzle</i> when you put something in the pan</div><div>- Crispy food is good food<br><br>This book was a large part of the inspiration for <a href=\"https://www.newsletter.kahvipatel.com/i/194373639/from-scratch\">making things from scratch</a>.</div>",
+      "year": "2026"
+    },
+    {
       "title": "The Left Hand of Darkness",
       "author": "Ursula K. Le Guin",
       "dateFinished": "12/01/2026",
