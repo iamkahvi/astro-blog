@@ -2,7 +2,7 @@
 title: "my email newsletter"
 description: new year new blog
 date: 2023-01-23
-published: true
+published: false
 ---
 
 I've launched a **monthly email newsletter**!!!!!!!!!!!!! This is [how it works](https://www.newsletter.kahvipatel.com/p/what-why-how).

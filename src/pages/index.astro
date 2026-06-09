@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
 import BookListLogo from "../components/BookListLogo.astro";
+import NewsletterLogo from "../components/NewsletterLogo.astro";
 
 const siteMetadata = {
   title: `kahvi's blog`,
@@ -31,6 +32,7 @@ const sortedPosts = allPosts
 
 <Layout title={title} description={description}>
   <body>
+    <NewsletterLogo />
     <BookListLogo />
     <BlogList posts={sortedPosts} client:load />
   </body>

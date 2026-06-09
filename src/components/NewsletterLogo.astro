@@ -15,9 +15,15 @@ const title = "kahvi's newsletter";
   }
 
   @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .newsletter-title {
@@ -30,10 +36,25 @@ const title = "kahvi's newsletter";
     font-size: 7rem;
     line-height: 0.85;
     color: var(--c-main);
+    transition:
+      color 0.3s ease,
+      text-shadow 0.3s ease,
+      font-size 0.2s ease;
     text-shadow:
-      -8px 8px 0 color-mix(in srgb, var(--c-shadow) 33%, var(--c-main)),
+      -8px 8px 0 color-mix(in srgb, var(--c-shadow) 55%, var(--c-main)),
       -16px 16px 0 color-mix(in srgb, var(--c-shadow) 66%, var(--c-main)),
       -24px 24px 0 var(--c-shadow);
+  }
+
+  .newsletter-title-wrapper:hover .newsletter-title {
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    font-size: 7.5rem;
+    text-shadow:
+      -8px 8px 0 color-mix(in srgb, var(--c-main) 55%, var(--c-shadow)),
+      -16px 16px 0 color-mix(in srgb, var(--c-main) 66%, var(--c-shadow)),
+      -24px 24px 0 var(--c-main);
   }
 
   .newsletter-title-wrapper {
@@ -54,7 +75,11 @@ const title = "kahvi's newsletter";
 </style>
 
 <div class="newsletter-title-wrapper">
-  <a class="newsletter-link" href="https://www.newsletter.kahvipatel.com/" target="_blank">
+  <a
+    class="newsletter-link"
+    href="https://www.newsletter.kahvipatel.com/"
+    target="_blank"
+  >
     <span class="newsletter-title">read the</span>
     <span class="newsletter-title">newsletter</span>
   </a>
