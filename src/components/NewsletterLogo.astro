@@ -41,9 +41,9 @@ const title = "kahvi's newsletter";
       text-shadow 0.3s ease,
       font-size 0.2s ease;
     text-shadow:
-      -8px 8px 0 color-mix(in srgb, var(--c-shadow) 55%, var(--c-main)),
-      -16px 16px 0 color-mix(in srgb, var(--c-shadow) 66%, var(--c-main)),
-      -24px 24px 0 var(--c-shadow);
+      -0.1em 0.1em 0 color-mix(in srgb, var(--c-shadow) 55%, var(--c-main)),
+      -0.2em 0.2em 0 color-mix(in srgb, var(--c-shadow) 66%, var(--c-main)),
+      -0.3em 0.3em 0 var(--c-shadow);
   }
 
   .newsletter-title-wrapper:hover .newsletter-title {
@@ -52,15 +52,29 @@ const title = "kahvi's newsletter";
     -webkit-text-stroke-color: black;
     font-size: 7.5rem;
     text-shadow:
-      -8px 8px 0 color-mix(in srgb, var(--c-main) 55%, var(--c-shadow)),
-      -16px 16px 0 color-mix(in srgb, var(--c-main) 66%, var(--c-shadow)),
-      -24px 24px 0 var(--c-main);
+      -0.1em 0.1em 0 color-mix(in srgb, var(--c-main) 55%, var(--c-shadow)),
+      -0.2em 0.2em 0 color-mix(in srgb, var(--c-main) 66%, var(--c-shadow)),
+      -0.3em 0.3em 0 var(--c-main);
   }
 
   .newsletter-title-wrapper {
     /* border: 1px solid red; */
-    padding: 0 0 24px 24px;
-    margin-bottom: 24px;
+    padding: 0 0 1rem 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media screen and (max-width: 30rem) {
+    .newsletter-title-wrapper {
+      position: relative;
+      left: calc(-40vw + 50%);
+
+      /* border: 1px solid red; */
+      padding: 0;
+    }
+
+    .newsletter-title {
+      font-size: min(7rem, calc(15vw));
+    }
   }
 
   a.newsletter-link {
