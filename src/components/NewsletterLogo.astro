@@ -1,0 +1,61 @@
+---
+const title = "kahvi's newsletter";
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  body {
+    background: white;
+    margin: 40px;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .newsletter-title {
+    --c-shadow: #b96de0;
+
+    display: flex;
+    flex-direction: column;
+    font-family: "Rubik", "Arial Black", "Helvetica Neue", sans-serif;
+    font-weight: 900;
+    font-size: 7rem;
+    line-height: 0.85;
+    color: var(--c-main);
+    text-shadow:
+      -8px 8px 0 color-mix(in srgb, var(--c-shadow) 33%, var(--c-main)),
+      -16px 16px 0 color-mix(in srgb, var(--c-shadow) 66%, var(--c-main)),
+      -24px 24px 0 var(--c-shadow);
+  }
+
+  .newsletter-title-wrapper {
+    /* border: 1px solid red; */
+    padding: 0 0 24px 24px;
+    margin-bottom: 24px;
+  }
+
+  a.newsletter-link {
+    color: inherit;
+    &::after {
+      content: none;
+    }
+    &:hover {
+      color: inherit;
+    }
+  }
+</style>
+
+<div class="newsletter-title-wrapper">
+  <a class="newsletter-link" href="https://www.newsletter.kahvipatel.com/" target="_blank">
+    <span class="newsletter-title">read the</span>
+    <span class="newsletter-title">newsletter</span>
+  </a>
+</div>
