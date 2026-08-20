@@ -31,9 +31,7 @@ const sortedPosts = allPosts
 ---
 
 <Layout title={title} description={description}>
-  <body>
-    <NewsletterLogo />
-    <BookListLogo />
-    <BlogList posts={sortedPosts} client:load />
-  </body>
+  <NewsletterLogo />
+  <BookListLogo />
+  <BlogList posts={sortedPosts} client:load />
 </Layout>
