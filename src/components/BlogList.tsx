@@ -79,7 +79,6 @@ export default function BlogList(props: Props) {
         handleSearch={handleSearch}
         placeholderText="search posts..."
         searchVal={search}
-        isSticky={false}
       />
       {props.posts
         .filter(filterPosts)

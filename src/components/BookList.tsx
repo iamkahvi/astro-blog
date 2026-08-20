@@ -84,7 +84,6 @@ export default function BookList(props: Props) {
         handleSearch={handleSearch}
         placeholderText="search books..."
         searchVal={search}
-        isSticky={false}
       />
       <ul className="ml0">
         {books
