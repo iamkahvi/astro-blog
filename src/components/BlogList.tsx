@@ -2,7 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 import { useState } from "preact/hooks";
 import type { JSX } from 'preact'
 
-import SearchBar from "./SearchBar";
+import SearchBar from "./searchBar";
 
 import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 

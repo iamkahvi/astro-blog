@@ -1,7 +1,7 @@
 import { useState, useEffect } from "preact/hooks";
 import type { JSX } from 'preact'
 
-import SearchBar from './SearchBar'
+import SearchBar from './searchBar'
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
