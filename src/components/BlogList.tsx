@@ -1,6 +1,8 @@
 import type { CollectionEntry } from 'astro:content';
+import { useRef } from "preact/hooks";
+
 import SearchBar from "./searchBar";
-import { highlightMatch, useUrlSyncedSearch } from "../lib/search";
+import { useSearchHighlights, useUrlSyncedSearch } from "../lib/search";
 
 import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 
@@ -12,6 +14,9 @@ interface Props {
 
 export default function BlogList(props: Props) {
   const { search, handleSearch } = useUrlSyncedSearch();
+  const blogListRef = useRef<HTMLDivElement>(null);
+
+  useSearchHighlights(blogListRef, search, [props.posts]);
 
   const renderPost = ({
     current,
@@ -43,17 +48,17 @@ export default function BlogList(props: Props) {
               className="f4 mb2 roboto c-main"
               href={url}
             >
-              {highlightMatch(title, search)}
+              {title}
             </a>
             <p className="f6 fw4 roboto c-second">
-              {highlightMatch(description, search)}
+              {description}
             </p>
           </h3>
           <small className="post-date f5 roboto c-second fr tr w-third">
-            {highlightMatch(displayDate, search)}
+            {displayDate}
           </small>
           <small className="post-date-small f5 roboto c-second fr tr w-third">
-            {highlightMatch(displayDateSmall, search)}
+            {displayDateSmall}
           </small>
         </div>
       </div>
@@ -77,13 +82,15 @@ export default function BlogList(props: Props) {
         placeholderText="search posts..."
         searchVal={search}
       />
-      {props.posts
-        .filter(filterPosts)
-        .map((entry, ind, arr) => ({
-          current: entry,
-          previous: arr[ind - 1] ?? null,
-        }))
-        .map(renderPost)}
+      <div ref={blogListRef}>
+        {props.posts
+          .filter(filterPosts)
+          .map((entry, ind, arr) => ({
+            current: entry,
+            previous: arr[ind - 1] ?? null,
+          }))
+          .map(renderPost)}
+      </div>
     </>
   );
 }

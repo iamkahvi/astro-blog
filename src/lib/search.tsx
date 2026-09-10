@@ -55,54 +55,80 @@ export function useUrlSyncedSearch() {
   return { search, handleSearch };
 }
 
-interface HighlightPatterns {
-  split: RegExp;
-  test: RegExp;
-}
-
-function getHighlightPatterns(query: string): HighlightPatterns | null {
+function getHighlightPatterns(query: string): string[] | null {
   const clean = query.trim();
   if (!clean) return null;
 
   const tokens = clean.split(/\s+/).filter(Boolean);
   const patterns = Array.from(new Set([clean, ...tokens])).map(escapeRegExp);
-  if (patterns.length === 0) return null;
-
-  return {
-    split: new RegExp(`(${patterns.join("|")})`, "gi"),
-    test: new RegExp(`^(?:${patterns.join("|")})$`, "i"),
-  };
-}
-
-function highlightText(
-  text: string,
-  patterns: HighlightPatterns,
-  renderMatch: (match: string, index: number) => string | JSX.Element,
-): (JSX.Element | string)[] | string {
-  const parts = text.split(patterns.split);
-  if (parts.length === 1) return text;
-
-  return parts.map((part, i) =>
-    patterns.test.test(part) ? renderMatch(part, i) : part,
-  );
+  return patterns.length > 0 ? patterns : null;
 }
 
 export function getHighlightRegex(query: string): RegExp | null {
-  return getHighlightPatterns(query)?.split ?? null;
+  const patterns = getHighlightPatterns(query);
+  return patterns ? new RegExp(`(${patterns.join("|")})`, "gi") : null;
 }
 
-export function highlightMatch(
-  text: string,
-  query: string,
-): (JSX.Element | string)[] | string {
-  const patterns = getHighlightPatterns(query);
-  if (!patterns || !text) return text;
+interface SearchHighlightRoot {
+  current: HTMLElement | null;
+}
 
-  return highlightText(text, patterns, (part, i) => (
-    <mark key={i} className="search-highlight">
-      {part}
-    </mark>
-  ));
+export function useSearchHighlights(
+  containerRef: SearchHighlightRoot,
+  query: string,
+  dependencies: readonly unknown[] = [],
+): void {
+  useEffect(() => {
+    const { CSS: css, Highlight } = globalThis as typeof globalThis & {
+      CSS?: {
+        highlights?: {
+          set(name: string, highlight: unknown): void;
+          delete(name: string): void;
+        };
+      };
+      Highlight?: new (...ranges: Range[]) => unknown;
+    };
+
+    const container = containerRef.current;
+    if (!css?.highlights || !Highlight || !container) return;
+
+    const highlightName = "search-matches";
+    css.highlights.delete(highlightName);
+
+    const regex = getHighlightRegex(query);
+    if (!regex) return;
+
+    const ranges: Range[] = [];
+    const walker = document.createTreeWalker(
+      container,
+      NodeFilter.SHOW_TEXT,
+    );
+
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+      // Generated year headings are not searchable fields.
+      if ((node.parentElement as HTMLElement | null)?.closest("h1, h2")) {
+        continue;
+      }
+
+      const text = node.textContent ?? "";
+      regex.lastIndex = 0;
+      for (const match of text.matchAll(regex)) {
+        if (match.index === undefined) continue;
+
+        const range = new Range();
+        range.setStart(node, match.index);
+        range.setEnd(node, match.index + match[0].length);
+        ranges.push(range);
+      }
+    }
+
+    if (ranges.length > 0) {
+      css.highlights.set(highlightName, new Highlight(...ranges));
+    }
+
+    return () => css.highlights?.delete(highlightName);
+  }, [containerRef, query, ...dependencies]);
 }
 
 // Tier 2 Search (Newsletter): Ranked with metadata/body matching

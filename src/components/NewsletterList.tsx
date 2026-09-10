@@ -1,11 +1,11 @@
 import type { CollectionEntry } from "astro:content";
-import { useMemo } from "preact/hooks";
+import { useMemo, useRef } from "preact/hooks";
 
 import SearchBar from "./searchBar";
 import { getDateFormats, getSlugFromPath } from "../lib/utils";
 import {
   searchAndSortIssues,
-  highlightMatch,
+  useSearchHighlights,
   useUrlSyncedSearch,
 } from "../lib/search";
 
@@ -17,6 +17,9 @@ interface Props {
 
 export default function NewsletterList(props: Props) {
   const { search, handleSearch } = useUrlSyncedSearch();
+  const newsletterListRef = useRef<HTMLDivElement>(null);
+
+  useSearchHighlights(newsletterListRef, search, [props.issues]);
 
   const filteredIssues = useMemo(
     () => searchAndSortIssues(props.issues, search),
@@ -30,7 +33,7 @@ export default function NewsletterList(props: Props) {
         placeholderText="search newsletter..."
         searchVal={search}
       />
-      <div>
+      <div ref={newsletterListRef}>
         {filteredIssues.map((issue, i) => {
           const slug = getSlugFromPath(issue.id);
           const url = "/newsletter/" + slug;
@@ -51,10 +54,10 @@ export default function NewsletterList(props: Props) {
                   className="f4 mb2 roboto c-main"
                   href={url}
                 >
-                  {highlightMatch(title, search)}
+                  {title}
                 </a>
                 <p className="f6 fw4 roboto c-second">
-                  {highlightMatch(description, search)}
+                  {description}
                 </p>
               </h3>
               <small className="post-date f5 roboto c-second fr tr w-third">

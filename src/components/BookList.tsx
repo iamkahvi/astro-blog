@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "preact/hooks";
 
 import SearchBar from './searchBar'
-import { getHighlightRegex, useUrlSyncedSearch } from "../lib/search";
+import { useSearchHighlights, useUrlSyncedSearch } from "../lib/search";
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
@@ -23,54 +23,7 @@ export default function BookList(props: Props) {
     }
   }, []);
 
-  useEffect(() => {
-    const { CSS: css, Highlight } = globalThis as typeof globalThis & {
-      CSS?: {
-        highlights?: {
-          set(name: string, highlight: unknown): void;
-          delete(name: string): void;
-        };
-      };
-      Highlight?: new (...ranges: Range[]) => unknown;
-    };
-
-    if (!css?.highlights || !Highlight || !bookListRef.current) return;
-
-    const highlightName = "search-matches";
-    css.highlights.delete(highlightName);
-
-    const regex = getHighlightRegex(search);
-    if (!regex) return;
-
-    const ranges: Range[] = [];
-    const walker = document.createTreeWalker(
-      bookListRef.current,
-      NodeFilter.SHOW_TEXT,
-    );
-
-    let node: Node | null;
-    while ((node = walker.nextNode())) {
-      // Year headings are not searchable book fields.
-      if ((node.parentElement as HTMLElement | null)?.closest("h2")) continue;
-
-      const text = node.textContent ?? "";
-      regex.lastIndex = 0;
-      for (const match of text.matchAll(regex)) {
-        if (match.index === undefined) continue;
-
-        const range = new Range();
-        range.setStart(node, match.index);
-        range.setEnd(node, match.index + match[0].length);
-        ranges.push(range);
-      }
-    }
-
-    if (ranges.length > 0) {
-      css.highlights.set(highlightName, new Highlight(...ranges));
-    }
-
-    return () => css.highlights?.delete(highlightName);
-  }, [books, search]);
+  useSearchHighlights(bookListRef, search, [books]);
 
   const renderBook = ({
     current,
