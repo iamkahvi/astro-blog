@@ -1,14 +1,12 @@
 import type { CollectionEntry } from "astro:content";
-import { useState, useMemo, useEffect } from "preact/hooks";
-import type { JSX } from "preact";
+import { useMemo } from "preact/hooks";
 
 import SearchBar from "./searchBar";
 import { getDateFormats, getSlugFromPath } from "../lib/utils";
 import {
   searchAndSortIssues,
   highlightMatch,
-  getSearchFromUrl,
-  updateUrlQuery,
+  useUrlSyncedSearch,
 } from "../lib/search";
 
 type NewsletterIssue = CollectionEntry<"newsletter">;
@@ -18,20 +16,7 @@ interface Props {
 }
 
 export default function NewsletterList(props: Props) {
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const q = getSearchFromUrl();
-    if (q) {
-      setSearch(q);
-    }
-  }, []);
-
-  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    const value = e.currentTarget.value;
-    setSearch(value);
-    updateUrlQuery(value);
-  };
+  const { search, handleSearch } = useUrlSyncedSearch();
 
   const filteredIssues = useMemo(
     () => searchAndSortIssues(props.issues, search),

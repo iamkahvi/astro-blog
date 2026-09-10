@@ -1,8 +1,7 @@
-import { useState, useEffect } from "preact/hooks";
-import type { JSX } from 'preact'
+import { useEffect } from "preact/hooks";
 
 import SearchBar from './searchBar'
-import { highlightMatch, getSearchFromUrl, updateUrlQuery } from "../lib/search";
+import { highlightMatch, useUrlSyncedSearch } from "../lib/search";
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
@@ -14,24 +13,14 @@ interface Props {
 }
 
 export default function BookList(props: Props) {
-  const [search, setSearch] = useState("");
+  const { search, handleSearch } = useUrlSyncedSearch();
   const { books, introHtml } = props.bookShelf;
 
   useEffect(() => {
-    const q = getSearchFromUrl();
-    if (q) {
-      setSearch(q);
-    }
     if (window.location.hash) {
       document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
     }
   }, []);
-
-  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    const value = e.currentTarget.value;
-    setSearch(value);
-    updateUrlQuery(value);
-  };
 
   const renderBook = ({
     current,

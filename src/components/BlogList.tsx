@@ -1,9 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
-import { useState, useEffect } from "preact/hooks";
-import type { JSX } from 'preact'
-
 import SearchBar from "./searchBar";
-import { highlightMatch, getSearchFromUrl, updateUrlQuery } from "../lib/search";
+import { highlightMatch, useUrlSyncedSearch } from "../lib/search";
 
 import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 
@@ -14,20 +11,7 @@ interface Props {
 }
 
 export default function BlogList(props: Props) {
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const q = getSearchFromUrl();
-    if (q) {
-      setSearch(q);
-    }
-  }, []);
-
-  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    const value = e.currentTarget.value;
-    setSearch(value);
-    updateUrlQuery(value);
-  };
+  const { search, handleSearch } = useUrlSyncedSearch();
 
   const renderPost = ({
     current,

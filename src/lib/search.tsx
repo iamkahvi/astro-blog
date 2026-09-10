@@ -1,4 +1,5 @@
 import type { JSX } from "preact";
+import { useEffect, useState } from "preact/hooks";
 
 export function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -33,6 +34,25 @@ export function updateUrlQuery(query: string): void {
   }
   const newUrl = url.pathname + url.search + url.hash;
   window.history.replaceState(null, "", newUrl);
+}
+
+export function useUrlSyncedSearch() {
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const query = getSearchFromUrl();
+    if (query) {
+      setSearch(query);
+    }
+  }, []);
+
+  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    const value = e.currentTarget.value;
+    setSearch(value);
+    updateUrlQuery(value);
+  };
+
+  return { search, handleSearch };
 }
 
 export function highlightMatch(
