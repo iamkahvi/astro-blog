@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import NewsletterLogo from "../../components/NewsletterLogo.astro";
 import NewsletterList from "../../components/NewsletterList";
+import { getSearchFromParams } from "../../lib/search";
 
 const title = "newsletter";
 const description = "an archive of my monthly email newsletter";
@@ -13,6 +14,7 @@ const sortedIssues = allIssues
   .sort(
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
   );
+const initialSearch = getSearchFromParams(Astro.url.searchParams);
 ---
 
 <Layout title={title} description={description}>
@@ -23,5 +25,9 @@ const sortedIssues = allIssues
       subscribe here
     </a>
   </p>
-  <NewsletterList issues={sortedIssues} client:load />
+  <NewsletterList
+    issues={sortedIssues}
+    initialSearch={initialSearch}
+    client:load
+  />
 </Layout>

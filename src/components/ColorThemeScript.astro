@@ -1,23 +1,40 @@
 ---
-
+import { themeMap } from "./colorThemes";
 ---
 
-<script>
-  import {
-    getInitialColorMode,
-    setRootStyles,
-    setTheme,
-  } from "../lib/color-theme.ts";
+<!-- This must stay inline and blocking so the theme is set before first paint. -->
+<script is:inline define:vars={{ themeMap }}>
+  (() => {
+    let storedTheme = null;
 
-  const themeToggleId = "color-theme-toggle";
+    try {
+      storedTheme = window.localStorage.getItem("color-theme");
+    } catch {
+      // localStorage can be unavailable in privacy-restricted contexts.
+    }
 
-  (function () {
-    const colorMode = getInitialColorMode();
-    setRootStyles(colorMode);
+    const theme = Object.prototype.hasOwnProperty.call(themeMap, storedTheme)
+      ? storedTheme
+      : window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "classic";
+
+    for (const [property, value] of Object.entries(themeMap[theme])) {
+      document.documentElement.style.setProperty(property, value);
+
+      if (property === "--c-main") {
+        document.documentElement.style.setProperty(
+          "--c-main-selection",
+          `${value}50`,
+        );
+      }
+    }
   })();
+</script>
 
-  const button = document.getElementById(themeToggleId);
-  button!.addEventListener("click", () => {
-    setTheme();
-  });
+<script>
+  import { setTheme } from "../lib/color-theme.ts";
+
+  const button = document.getElementById("color-theme-toggle");
+  button?.addEventListener("click", () => setTheme());
 </script>

@@ -2,7 +2,11 @@ import type { CollectionEntry } from 'astro:content';
 import { useRef } from "preact/hooks";
 
 import SearchBar from "./searchBar";
-import { useSearchHighlights, useUrlSyncedSearch } from "../lib/search";
+import {
+  matchesSearch,
+  useSearchHighlights,
+  useUrlSyncedSearch,
+} from "../lib/search";
 
 import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 
@@ -10,10 +14,11 @@ type BlogPost = CollectionEntry<'posts'>;
 
 interface Props {
   posts: BlogPost[];
+  initialSearch?: string;
 }
 
 export default function BlogList(props: Props) {
-  const { search, handleSearch } = useUrlSyncedSearch();
+  const { search, handleSearch } = useUrlSyncedSearch(props.initialSearch);
   const blogListRef = useRef<HTMLDivElement>(null);
 
   useSearchHighlights(blogListRef, search, [props.posts]);
@@ -66,13 +71,15 @@ export default function BlogList(props: Props) {
   };
 
   const filterPosts = (entry: BlogPost) => {
-    const clean = search.trim().toLowerCase();
-    if (!clean) return true;
-    const tokens = clean.split(/\s+/).filter(Boolean);
     const { title, date, description = "" } = entry.data;
     const { displayDate, displayDateSmall } = getDateFormats(date);
-    const renderedText = `${title} ${displayDate} ${displayDateSmall} ${description}`.toLowerCase();
-    return tokens.every((token) => renderedText.includes(token));
+    return matchesSearch(
+      search,
+      title,
+      displayDate,
+      displayDateSmall,
+      description,
+    );
   };
 
   return (

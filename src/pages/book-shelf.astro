@@ -2,13 +2,15 @@
 import Layout from "../components/Layout.astro";
 import BookList from "../components/BookList";
 import { getBookShelfData } from "../lib/source-local";
+import { getSearchFromParams } from "../lib/search";
 
 const data = await getBookShelfData();
 
 const title = "my book shelf";
+const initialSearch = getSearchFromParams(Astro.url.searchParams);
 ---
 
 <Layout title={data.title} description="">
   <h1 class="mt0">{title}</h1>
-  <BookList bookShelf={data} client:idle />
+  <BookList bookShelf={data} initialSearch={initialSearch} client:idle />
 </Layout>

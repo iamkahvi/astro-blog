@@ -15,10 +15,13 @@ export function stripMarkdown(md: string): string {
     .trim();
 }
 
+export function getSearchFromParams(params: URLSearchParams): string {
+  return params.get("q") ?? params.get("search") ?? "";
+}
+
 export function getSearchFromUrl(): string {
   if (typeof window === "undefined") return "";
-  const params = new URLSearchParams(window.location.search);
-  return params.get("q") ?? params.get("search") ?? "";
+  return getSearchFromParams(new URLSearchParams(window.location.search));
 }
 
 export function updateUrlQuery(query: string): void {
@@ -36,14 +39,15 @@ export function updateUrlQuery(query: string): void {
   window.history.replaceState(null, "", newUrl);
 }
 
-export function useUrlSyncedSearch() {
-  const [search, setSearch] = useState("");
+export function useUrlSyncedSearch(initialSearch = "") {
+  // Let the post-hydration effect read the URL on static pages. Initializing
+  // from getSearchFromUrl() here makes Preact skip updating the hydrated input
+  // when the server-rendered value was empty but the URL contains a query.
+  const [search, setSearch] = useState(initialSearch);
 
   useEffect(() => {
     const query = getSearchFromUrl();
-    if (query) {
-      setSearch(query);
-    }
+    setSearch((current) => (current === query ? current : query));
   }, []);
 
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
@@ -131,90 +135,37 @@ export function useSearchHighlights(
   }, [containerRef, query, ...dependencies]);
 }
 
-// Tier 2 Search (Newsletter): Ranked with metadata/body matching
+export function matchesSearch(query: string, ...fields: string[]): boolean {
+  const cleanQuery = query.trim().toLowerCase();
+  if (!cleanQuery) return true;
+
+  const searchableText = fields.join(" ").toLowerCase();
+  return cleanQuery
+    .split(/\s+/)
+    .filter(Boolean)
+    .every((token) => searchableText.includes(token));
+}
+
 export interface SearchableIssue {
   data: {
     title: string;
     description?: string;
-    date: Date | string | number;
   };
   body?: string;
 }
 
-export function scoreNewsletterIssue(
-  issue: SearchableIssue,
-  query: string,
-): number {
-  const cleanQuery = query.trim().toLowerCase();
-  if (!cleanQuery) return 0;
-
-  const tokens = cleanQuery.split(/\s+/).filter(Boolean);
-  if (tokens.length === 0) return 0;
-
-  const lowerTitle = issue.data.title.toLowerCase();
-  const lowerDesc = (issue.data.description || "").toLowerCase();
-  const lowerBody = stripMarkdown(issue.body || "").toLowerCase();
-
-  let score = 0;
-
-  // Exact phrase bonuses on rendered text (title and description)
-  if (lowerTitle.includes(cleanQuery)) {
-    score += lowerTitle.startsWith(cleanQuery) ? 20 : 10;
-  }
-  if (lowerDesc.includes(cleanQuery)) {
-    score += 5;
-  }
-
-  // Token matching across fields
-  for (const token of tokens) {
-    let tokenMatched = false;
-
-    if (lowerTitle.includes(token)) {
-      score += 20;
-      tokenMatched = true;
-    }
-
-    if (lowerDesc.includes(token)) {
-      score += 10;
-      tokenMatched = true;
-    }
-
-    if (lowerBody.includes(token)) {
-      score += 1;
-      tokenMatched = true;
-    }
-
-    if (!tokenMatched) {
-      return 0;
-    }
-  }
-
-  return score;
-}
-
-export function searchAndSortIssues<T extends SearchableIssue>(
+export function filterNewsletterIssues<T extends SearchableIssue>(
   issues: T[],
   query: string,
 ): T[] {
-  const cleanQuery = query.trim();
-  if (!cleanQuery) {
-    return issues;
-  }
+  if (!query.trim()) return issues;
 
-  return issues
-    .map((issue) => ({
-      issue,
-      score: scoreNewsletterIssue(issue, cleanQuery),
-    }))
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => {
-      if (b.score !== a.score) {
-        return b.score - a.score;
-      }
-      return (
-        new Date(b.issue.data.date).valueOf() -
-        new Date(a.issue.data.date).valueOf()
-      );
-    })
-    .map(({ issue }) => issue);
+  return issues.filter((issue) =>
+    matchesSearch(
+      query,
+      issue.data.title,
+      issue.data.description ?? "",
+      stripMarkdown(issue.body ?? ""),
+    ),
+  );
 }

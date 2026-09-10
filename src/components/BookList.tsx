@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "preact/hooks";
 
 import SearchBar from './searchBar'
-import { useSearchHighlights, useUrlSyncedSearch } from "../lib/search";
+import {
+  matchesSearch,
+  useSearchHighlights,
+  useUrlSyncedSearch,
+} from "../lib/search";
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
@@ -10,10 +14,11 @@ const EARLIEST_YEAR_WITH_FINISH_DATE = 2019;
 
 interface Props {
   bookShelf: BookShelfData;
+  initialSearch?: string;
 }
 
 export default function BookList(props: Props) {
-  const { search, handleSearch } = useUrlSyncedSearch();
+  const { search, handleSearch } = useUrlSyncedSearch(props.initialSearch);
   const { books, introHtml } = props.bookShelf;
   const bookListRef = useRef<HTMLUListElement>(null);
 
@@ -67,13 +72,9 @@ export default function BookList(props: Props) {
   };
 
   const filterBooks = (book: BookNode) => {
-    const clean = search.trim().toLowerCase();
-    if (!clean) return true;
-    const tokens = clean.split(/\s+/).filter(Boolean);
     const { title, author, dateFinished, descriptionHtml = "" } = book;
     const descText = descriptionHtml.replace(/<[^>]*>/g, " ");
-    const renderedText = `${title} ${author} ${dateFinished} ${descText}`.toLowerCase();
-    return tokens.every((token) => renderedText.includes(token));
+    return matchesSearch(search, title, author, dateFinished, descText);
   };
 
   return (

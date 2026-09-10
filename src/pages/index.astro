@@ -4,6 +4,7 @@ import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
 import BookListLogo from "../components/BookListLogo.astro";
 import NewsletterLogo from "../components/NewsletterLogo.astro";
+import { getSearchFromParams } from "../lib/search";
 
 const siteMetadata = {
   title: `kahvi's blog`,
@@ -28,10 +29,11 @@ const sortedPosts = allPosts
     const published = p.data?.published ?? true;
     return published;
   });
+const initialSearch = getSearchFromParams(Astro.url.searchParams);
 ---
 
 <Layout title={title} description={description}>
   <NewsletterLogo />
   <BookListLogo />
-  <BlogList posts={sortedPosts} client:load />
+  <BlogList posts={sortedPosts} initialSearch={initialSearch} client:load />
 </Layout>

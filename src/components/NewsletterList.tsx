@@ -4,7 +4,7 @@ import { useMemo, useRef } from "preact/hooks";
 import SearchBar from "./searchBar";
 import { getDateFormats, getSlugFromPath } from "../lib/utils";
 import {
-  searchAndSortIssues,
+  filterNewsletterIssues,
   useSearchHighlights,
   useUrlSyncedSearch,
 } from "../lib/search";
@@ -13,16 +13,17 @@ type NewsletterIssue = CollectionEntry<"newsletter">;
 
 interface Props {
   issues: NewsletterIssue[];
+  initialSearch?: string;
 }
 
 export default function NewsletterList(props: Props) {
-  const { search, handleSearch } = useUrlSyncedSearch();
+  const { search, handleSearch } = useUrlSyncedSearch(props.initialSearch);
   const newsletterListRef = useRef<HTMLDivElement>(null);
 
   useSearchHighlights(newsletterListRef, search, [props.issues]);
 
   const filteredIssues = useMemo(
-    () => searchAndSortIssues(props.issues, search),
+    () => filterNewsletterIssues(props.issues, search),
     [props.issues, search],
   );
 
