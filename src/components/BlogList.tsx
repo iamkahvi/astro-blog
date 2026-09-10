@@ -1,7 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { useRef } from "preact/hooks";
 
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import {
   matchesSearch,
   useSearchHighlights,

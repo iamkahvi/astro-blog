@@ -38,13 +38,30 @@ export default function SearchBar({
   }, []);
 
   return (
-    <input
-      ref={inputRef}
-      onInput={handleSearch}
-      placeholder={placeholderText}
-      value={searchVal}
-      className="roboto mb3 f5 f4-ns normal ba br3 pa2"
-      autocomplete="off"
-    />
+    <>
+      <input
+        ref={inputRef}
+        onInput={handleSearch}
+        placeholder={placeholderText}
+        value={searchVal}
+        className="roboto mb3 f5 f4-ns normal ba br3 pa2"
+        autocomplete="off"
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            (() => {
+              const input = document.currentScript?.previousElementSibling;
+              if (!(input instanceof HTMLInputElement)) return;
+
+              const params = new URLSearchParams(window.location.search);
+              const query = params.get("q") ?? params.get("search") ?? "";
+              input.value = query;
+              input.defaultValue = query;
+            })();
+          `,
+        }}
+      />
+    </>
   );
 }

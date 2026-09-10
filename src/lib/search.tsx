@@ -154,18 +154,52 @@ export interface SearchableIssue {
   body?: string;
 }
 
+type SearchFieldGetters<T> = Record<string, (item: T) => string[]> & {
+  default: (item: T) => string[];
+};
+
+function filterBySearchFields<T>(
+  items: T[],
+  query: string,
+  fields: SearchFieldGetters<T>,
+): T[] {
+  const termsByField = new Map<string, string[]>();
+  const supportedKeywords = new Set(
+    Object.keys(fields).filter((field) => field !== "default"),
+  );
+
+  for (const term of query.trim().split(/\s+/).filter(Boolean)) {
+    const separatorIndex = term.indexOf(":");
+    const keyword = term.slice(0, separatorIndex).toLowerCase();
+    const isQualified =
+      separatorIndex > 0 && supportedKeywords.has(keyword);
+    const field = isQualified ? keyword : "default";
+    const value = isQualified ? term.slice(separatorIndex + 1) : term;
+
+    if (!value) continue;
+    const fieldTerms = termsByField.get(field) ?? [];
+    fieldTerms.push(value);
+    termsByField.set(field, fieldTerms);
+  }
+
+  if (termsByField.size === 0) return items;
+
+  return items.filter((item) =>
+    Array.from(termsByField).every(([field, terms]) =>
+      matchesSearch(terms.join(" "), ...fields[field](item)),
+    ),
+  );
+}
+
 export function filterNewsletterIssues<T extends SearchableIssue>(
   issues: T[],
   query: string,
 ): T[] {
-  if (!query.trim()) return issues;
-
-  return issues.filter((issue) =>
-    matchesSearch(
-      query,
+  return filterBySearchFields(issues, query, {
+    default: (issue) => [
       issue.data.title,
       issue.data.description ?? "",
-      stripMarkdown(issue.body ?? ""),
-    ),
-  );
+    ],
+    content: (issue) => [stripMarkdown(issue.body ?? "")],
+  });
 }

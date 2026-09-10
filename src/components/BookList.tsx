@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "preact/hooks";
 
-import SearchBar from './searchBar'
+import SearchBar from './SearchBar'
 import {
   matchesSearch,
   useSearchHighlights,

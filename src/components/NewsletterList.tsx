@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { useMemo, useRef } from "preact/hooks";
 
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import { getDateFormats, getSlugFromPath } from "../lib/utils";
 import {
   filterNewsletterIssues,
