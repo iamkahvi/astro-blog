@@ -7,7 +7,6 @@ import ColorThemeScript from "./ColorThemeScript.astro";
 type Props = { title: string; description: string; children: any };
 
 const { title, description } = Astro.props;
-const newsletterUrl = "https://www.newsletter.kahvipatel.com";
 const navStyle = "roboto c-main";
 const descriptionStyle = "f6 roboto pt1 mt2 c-second";
 const themeToggleId = "color-theme-toggle";
@@ -58,11 +57,7 @@ const themeToggleId = "color-theme-toggle";
               <span class="mr2 hide-mobile">/</span>
             </p>
             <p>
-              <a
-                href={newsletterUrl}
-                class={navStyle.concat(" mr2")}
-                target="_blank"
-              >
+              <a href="/newsletter" class={navStyle.concat(" mr2")}>
                 newsletter</a
               >
                /

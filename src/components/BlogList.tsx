@@ -1,8 +1,9 @@
 import type { CollectionEntry } from 'astro:content';
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import type { JSX } from 'preact'
 
 import SearchBar from "./searchBar";
+import { highlightMatch, getSearchFromUrl, updateUrlQuery } from "../lib/search";
 
 import { CURR_YEAR_STRING, getDateFormats, getSlugFromPath } from "../lib/utils";
 
@@ -15,8 +16,17 @@ interface Props {
 export default function BlogList(props: Props) {
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    const q = getSearchFromUrl();
+    if (q) {
+      setSearch(q);
+    }
+  }, []);
+
   const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    setSearch(e.currentTarget.value);
+    const value = e.currentTarget.value;
+    setSearch(value);
+    updateUrlQuery(value);
   };
 
   const renderPost = ({
@@ -49,15 +59,17 @@ export default function BlogList(props: Props) {
               className="f4 mb2 roboto c-main"
               href={url}
             >
-              {title}
+              {highlightMatch(title, search)}
             </a>
-            <p className="f6 fw4 roboto c-second">{description}</p>
+            <p className="f6 fw4 roboto c-second">
+              {highlightMatch(description, search)}
+            </p>
           </h3>
           <small className="post-date f5 roboto c-second fr tr w-third">
-            {displayDate}
+            {highlightMatch(displayDate, search)}
           </small>
           <small className="post-date-small f5 roboto c-second fr tr w-third">
-            {displayDateSmall}
+            {highlightMatch(displayDateSmall, search)}
           </small>
         </div>
       </div>
@@ -65,13 +77,14 @@ export default function BlogList(props: Props) {
   };
 
   const filterPosts = (entry: BlogPost) => {
-    const { title, date, description } = entry.data;
-    const { displayDate } = getDateFormats(date);
-
-    return (title + displayDate + description)
-      .toLowerCase()
-      .includes(search.toLowerCase()) || search === ""
-  }
+    const clean = search.trim().toLowerCase();
+    if (!clean) return true;
+    const tokens = clean.split(/\s+/).filter(Boolean);
+    const { title, date, description = "" } = entry.data;
+    const { displayDate, displayDateSmall } = getDateFormats(date);
+    const renderedText = `${title} ${displayDate} ${displayDateSmall} ${description}`.toLowerCase();
+    return tokens.every((token) => renderedText.includes(token));
+  };
 
   return (
     <>

@@ -1,4 +1,7 @@
 ---
+type Props = { short?: boolean; clickable?: boolean };
+const { short = false, clickable = true } = Astro.props;
+
 const title = "kahvi's newsletter";
 ---
 
@@ -41,7 +44,7 @@ const title = "kahvi's newsletter";
       -0.3em 0.3em 0 var(--c-shadow);
   }
 
-  .newsletter-title-wrapper:hover .newsletter-title {
+  .newsletter-title-wrapper.clickable:hover .newsletter-title {
     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
@@ -81,15 +84,35 @@ const title = "kahvi's newsletter";
       color: inherit;
     }
   }
+
+  .newsletter-link-static {
+    display: block;
+    color: inherit;
+  }
 </style>
 
-<div class="newsletter-title-wrapper">
-  <a
-    class="newsletter-link"
-    href="https://www.newsletter.kahvipatel.com/"
-    target="_blank"
-  >
-    <span class="newsletter-title">read the</span>
-    <span class="newsletter-title">newsletter</span>
-  </a>
+<div class={"newsletter-title-wrapper" + (clickable ? " clickable" : "")}>
+  {clickable ? (
+    <a
+      class="newsletter-link"
+      href="https://www.newsletter.kahvipatel.com/"
+      target="_blank"
+    >
+      {short ? (
+        <span class="newsletter-title">newsletter</span>
+      ) : (
+        <span class="newsletter-title">read the</span>
+        <span class="newsletter-title">newsletter</span>
+      )}
+    </a>
+  ) : (
+    <span class="newsletter-link-static">
+      {short ? (
+        <span class="newsletter-title">newsletter</span>
+      ) : (
+        <span class="newsletter-title">read the</span>
+        <span class="newsletter-title">newsletter</span>
+      )}
+    </span>
+  )}
 </div>

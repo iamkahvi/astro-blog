@@ -54,6 +54,14 @@ pre[class*="astro-code"] {
   background-color: var(--c-main-selection);
 }
 
+mark,
+.search-highlight {
+  background-color: var(--c-main-selection);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 0.15rem;
+}
+
 svg {
   height: 20px;
   width: 20px;
