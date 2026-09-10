@@ -62,6 +62,11 @@ mark,
   padding: 0 0.15rem;
 }
 
+::highlight(search-matches) {
+  background-color: var(--c-main-selection);
+  color: inherit;
+}
+
 svg {
   height: 20px;
   width: 20px;

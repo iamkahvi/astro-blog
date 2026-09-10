@@ -55,32 +55,54 @@ export function useUrlSyncedSearch() {
   return { search, handleSearch };
 }
 
+interface HighlightPatterns {
+  split: RegExp;
+  test: RegExp;
+}
+
+function getHighlightPatterns(query: string): HighlightPatterns | null {
+  const clean = query.trim();
+  if (!clean) return null;
+
+  const tokens = clean.split(/\s+/).filter(Boolean);
+  const patterns = Array.from(new Set([clean, ...tokens])).map(escapeRegExp);
+  if (patterns.length === 0) return null;
+
+  return {
+    split: new RegExp(`(${patterns.join("|")})`, "gi"),
+    test: new RegExp(`^(?:${patterns.join("|")})$`, "i"),
+  };
+}
+
+function highlightText(
+  text: string,
+  patterns: HighlightPatterns,
+  renderMatch: (match: string, index: number) => string | JSX.Element,
+): (JSX.Element | string)[] | string {
+  const parts = text.split(patterns.split);
+  if (parts.length === 1) return text;
+
+  return parts.map((part, i) =>
+    patterns.test.test(part) ? renderMatch(part, i) : part,
+  );
+}
+
+export function getHighlightRegex(query: string): RegExp | null {
+  return getHighlightPatterns(query)?.split ?? null;
+}
+
 export function highlightMatch(
   text: string,
   query: string,
 ): (JSX.Element | string)[] | string {
-  const clean = query.trim();
-  if (!clean || !text) return text;
+  const patterns = getHighlightPatterns(query);
+  if (!patterns || !text) return text;
 
-  const tokens = clean.split(/\s+/).filter(Boolean);
-  const patterns = Array.from(new Set([clean, ...tokens])).map(escapeRegExp);
-  if (patterns.length === 0) return text;
-
-  const splitPattern = new RegExp(`(${patterns.join("|")})`, "gi");
-  const testPattern = new RegExp(`^(?:${patterns.join("|")})$`, "i");
-
-  const parts = text.split(splitPattern);
-  if (parts.length === 1) return text;
-
-  return parts.map((part, i) =>
-    testPattern.test(part) ? (
-      <mark key={i} className="search-highlight">
-        {part}
-      </mark>
-    ) : (
-      part
-    ),
-  );
+  return highlightText(text, patterns, (part, i) => (
+    <mark key={i} className="search-highlight">
+      {part}
+    </mark>
+  ));
 }
 
 // Tier 2 Search (Newsletter): Ranked with metadata/body matching

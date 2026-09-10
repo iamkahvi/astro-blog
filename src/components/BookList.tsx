@@ -1,7 +1,7 @@
-import { useEffect } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 
 import SearchBar from './searchBar'
-import { highlightMatch, useUrlSyncedSearch } from "../lib/search";
+import { getHighlightRegex, useUrlSyncedSearch } from "../lib/search";
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
@@ -15,12 +15,62 @@ interface Props {
 export default function BookList(props: Props) {
   const { search, handleSearch } = useUrlSyncedSearch();
   const { books, introHtml } = props.bookShelf;
+  const bookListRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     if (window.location.hash) {
       document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
     }
   }, []);
+
+  useEffect(() => {
+    const { CSS: css, Highlight } = globalThis as typeof globalThis & {
+      CSS?: {
+        highlights?: {
+          set(name: string, highlight: unknown): void;
+          delete(name: string): void;
+        };
+      };
+      Highlight?: new (...ranges: Range[]) => unknown;
+    };
+
+    if (!css?.highlights || !Highlight || !bookListRef.current) return;
+
+    const highlightName = "search-matches";
+    css.highlights.delete(highlightName);
+
+    const regex = getHighlightRegex(search);
+    if (!regex) return;
+
+    const ranges: Range[] = [];
+    const walker = document.createTreeWalker(
+      bookListRef.current,
+      NodeFilter.SHOW_TEXT,
+    );
+
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+      // Year headings are not searchable book fields.
+      if ((node.parentElement as HTMLElement | null)?.closest("h2")) continue;
+
+      const text = node.textContent ?? "";
+      regex.lastIndex = 0;
+      for (const match of text.matchAll(regex)) {
+        if (match.index === undefined) continue;
+
+        const range = new Range();
+        range.setStart(node, match.index);
+        range.setEnd(node, match.index + match[0].length);
+        ranges.push(range);
+      }
+    }
+
+    if (ranges.length > 0) {
+      css.highlights.set(highlightName, new Highlight(...ranges));
+    }
+
+    return () => css.highlights?.delete(highlightName);
+  }, [books, search]);
 
   const renderBook = ({
     current,
@@ -46,11 +96,11 @@ export default function BookList(props: Props) {
               className="book anchor c-second b"
               href={`#${idLink}`}
             >
-              <span className="fw5">{highlightMatch(title, search)}</span>
+              <span className="fw5">{title}</span>
             </a>
-            by {highlightMatch(author, search)}
+            by {author}
             {parseInt(year) >= EARLIEST_YEAR_WITH_FINISH_DATE && (
-              <em> - {highlightMatch(dateFinished, search)} </em>
+              <em> - {dateFinished} </em>
             )}
           </div>
           <div
@@ -85,7 +135,7 @@ export default function BookList(props: Props) {
         placeholderText="search books..."
         searchVal={search}
       />
-      <ul className="ml0">
+      <ul ref={bookListRef} className="ml0">
         {books
           .filter(filterBooks)
           .map((book, ind, arr) => ({
