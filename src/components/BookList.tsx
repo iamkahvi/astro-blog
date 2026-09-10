@@ -1,7 +1,7 @@
-import { useState, useEffect } from "preact/hooks";
-import type { JSX } from 'preact'
+import { useEffect } from "preact/hooks";
 
 import SearchBar from './searchBar'
+import { highlightMatch, useUrlSyncedSearch } from "../lib/search";
 import { yearMap } from "../lib/utils";
 import type { BookShelfData, BookNode } from "../lib/types";
 
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function BookList(props: Props) {
-  const [search, setSearch] = useState("");
+  const { search, handleSearch } = useUrlSyncedSearch();
   const { books, introHtml } = props.bookShelf;
 
   useEffect(() => {
@@ -21,10 +21,6 @@ export default function BookList(props: Props) {
       document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
     }
   }, []);
-
-  const handleSearch = (e: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-    setSearch(e.currentTarget.value);
-  };
 
   const renderBook = ({
     current,
@@ -50,10 +46,12 @@ export default function BookList(props: Props) {
               className="book anchor c-second b"
               href={`#${idLink}`}
             >
-              <span className="fw5">{title}</span>
+              <span className="fw5">{highlightMatch(title, search)}</span>
             </a>
-            by {author}
-            {parseInt(year) >= EARLIEST_YEAR_WITH_FINISH_DATE && <em> - {dateFinished} </em>}
+            by {highlightMatch(author, search)}
+            {parseInt(year) >= EARLIEST_YEAR_WITH_FINISH_DATE && (
+              <em> - {highlightMatch(dateFinished, search)} </em>
+            )}
           </div>
           <div
             dangerouslySetInnerHTML={{
@@ -66,12 +64,14 @@ export default function BookList(props: Props) {
   };
 
   const filterBooks = (book: BookNode) => {
-    const { title, author, dateFinished } = book;
-
-    return `${title} by ${author} - ${dateFinished}`
-      .toLowerCase()
-      .includes(search.toLowerCase()) || search === ""
-  }
+    const clean = search.trim().toLowerCase();
+    if (!clean) return true;
+    const tokens = clean.split(/\s+/).filter(Boolean);
+    const { title, author, dateFinished, descriptionHtml = "" } = book;
+    const descText = descriptionHtml.replace(/<[^>]*>/g, " ");
+    const renderedText = `${title} ${author} ${dateFinished} ${descText}`.toLowerCase();
+    return tokens.every((token) => renderedText.includes(token));
+  };
 
   return (
     <div className="textBody">

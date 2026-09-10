@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import { getSlugFromPath, getDateFormats } from "../../lib/utils";
+import Layout from "../../components/Layout.astro";
+import "../../styles/newsletter.css";
+
+export const getStaticPaths = async () => {
+  const allIssues = await getCollection("newsletter");
+
+  const paths = allIssues.map((issue) => {
+    const slug = getSlugFromPath(issue.id);
+
+    return {
+      params: {
+        slug,
+      },
+      props: { issue },
+    };
+  });
+
+  return paths;
+};
+
+const { issue } = Astro.props;
+const { title, date, description = "", substack = "" } = issue.data;
+const { displayDate } = getDateFormats(date);
+const { Content } = await issue.render();
+---
+
+<Layout title={title} description={description}>
+  <header class="newsletter-header newsletter-body mb4">
+    <div class="flex justify-between items-end">
+      <h1>{title}</h1>
+      <p class="newsletter-date">{displayDate}</p>
+    </div>
+    {description && <p class="newsletter-subtitle">{description}</p>}
+  </header>
+  <div class="newsletter-body">
+    <Content />
+  </div>
+  <div class="newsletter-body">
+    {
+      substack && (
+        <p>
+          <a href={substack} target="_blank" rel="noopener">
+            view on substack
+          </a>
+        </p>
+      )
+    }
+    <p>
+      <a href="/newsletter">← all issues</a>
+    </p>
+  </div>
+  <script>
+    document
+      .querySelectorAll('.newsletter-body a[href^="http"]')
+      .forEach((a) => {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      });
+  </script>
+</Layout>

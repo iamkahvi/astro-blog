@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import NewsletterLogo from "../../components/NewsletterLogo.astro";
+import NewsletterList from "../../components/NewsletterList";
+
+const title = "newsletter";
+const description = "an archive of my monthly email newsletter";
+
+const allIssues = await getCollection("newsletter");
+const sortedIssues = allIssues
+  .filter((issue) => issue.data.published ?? true)
+  .sort(
+    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
+  );
+---
+
+<Layout title={title} description={description}>
+  <NewsletterLogo short clickable={false} />
+  <p class="f6 roboto c-second mb4">
+    an archive of my monthly email newsletter -{" "}
+    <a href="https://www.newsletter.kahvipatel.com" target="_blank" rel="noopener">
+      subscribe here
+    </a>
+  </p>
+  <NewsletterList issues={sortedIssues} client:load />
+</Layout>

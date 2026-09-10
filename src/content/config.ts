@@ -26,8 +26,20 @@ const highlightsCollection = defineCollection({
   ),
 });
 
+const newsletterCollection = defineCollection({
+  type: "content", // v2.5.0 and later
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    date: z.date(),
+    published: z.boolean().optional(),
+    substack: z.string().optional(),
+  }),
+});
+
 // 3. Export a single `collections` object to register your collection(s)
 export const collections = {
   "posts": blogCollection,
   "highlights": highlightsCollection,
+  "newsletter": newsletterCollection,
 };

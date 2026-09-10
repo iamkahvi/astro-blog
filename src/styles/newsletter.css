@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap");
+
+/* Newsletter-only styles, scoped under .newsletter-body.
+   Body + heading typography matched from newsletter.kahvipatel.com
+   (probed computed styles, Sept 2026). Does not affect /posts. */
+
+.newsletter-body {
+  --nl-text: var(--c-second);
+  --nl-accent: var(--c-main);
+  --nl-muted: var(--c-second);
+  --nl-image-max-height: 30rem;
+  --nl-sans: "SF Pro Display", -apple-system-headline, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --nl-serif: "Spectral", Georgia, "Times New Roman", serif;
+
+  font-family: var(--nl-serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  color: var(--nl-text);
+  margin-bottom: 3rem;
+  overflow-wrap: break-word;
+}
+
+.newsletter-body p {
+  font-family: var(--nl-serif);
+  margin: 0 0 20px;
+}
+
+.newsletter-body h2,
+.newsletter-body h3,
+.newsletter-body h4 {
+  font-family: var(--nl-sans);
+  font-weight: 700;
+  color: var(--nl-text);
+}
+
+.newsletter-body h2 {
+  font-size: 32.5px;
+  line-height: 37.7px;
+  margin: 2rem 0 0.75rem;
+}
+
+.newsletter-body h3 {
+  font-size: 27.5px;
+  line-height: 31.9px;
+  margin: 1.75rem 0 0.6rem;
+}
+
+.newsletter-body h4 {
+  font-size: 22.5px;
+  line-height: 26.1px;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* Substack-style links: teal + underline, no site-wide fill animation */
+.newsletter-body a {
+  color: var(--nl-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.newsletter-body a::after {
+  content: none;
+}
+
+.newsletter-body a:hover {
+  color: var(--nl-accent);
+}
+
+.newsletter-body ul,
+.newsletter-body ol {
+  margin: 0 0 20px;
+  padding-left: 1.5rem;
+}
+
+.newsletter-body li {
+  margin-bottom: 8px;
+  line-height: 32px;
+}
+
+.newsletter-body li > p {
+  margin-bottom: 8px;
+}
+
+.newsletter-body blockquote {
+  border-left: 4px solid var(--nl-accent);
+  margin: 20px 0;
+  padding: 0 0 0 1rem;
+}
+
+.newsletter-body blockquote > p {
+  margin-bottom: 8px;
+}
+
+.newsletter-body img {
+  display: block;
+  max-width: min(100%, 40rem);
+  max-height: var(--nl-image-max-height);
+  height: auto;
+  margin: 20px auto;
+}
+
+.newsletter-body hr {
+  margin: 2rem 0;
+}
+
+.newsletter-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.newsletter-body pre {
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+/* Issue header, matching Substack post title + subtitle */
+.newsletter-header h1 {
+  font-family: var(--nl-sans);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 36px;
+  color: var(--nl-text);
+  margin: 0;
+}
+
+.newsletter-header .newsletter-subtitle {
+  font-family: var(--nl-sans);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--nl-muted);
+  margin: 0.5rem 0 0;
+}
+
+.newsletter-header .newsletter-date {
+  font-family: var(--nl-sans);
+  font-size: 14px;
+  color: var(--nl-muted);
+  margin: 0 0 4px 1rem;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 640px) {
+  .newsletter-body {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .newsletter-body h2 {
+    font-size: 28px;
+    line-height: 33px;
+  }
+
+  .newsletter-body h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .newsletter-body h4 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .newsletter-header h1 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+}
