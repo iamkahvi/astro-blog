@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function BlogList(props: Props) {
-  const { search, handleSearch } = useUrlSyncedSearch(props.initialSearch);
+  const { search, handleSearch, clearSearch } = useUrlSyncedSearch(props.initialSearch);
   const blogListRef = useRef<HTMLDivElement>(null);
 
   useSearchHighlights(blogListRef, search, [props.posts]);
@@ -86,6 +86,7 @@ export default function BlogList(props: Props) {
     <>
       <SearchBar
         handleSearch={handleSearch}
+        handleClear={clearSearch}
         placeholderText="search posts..."
         searchVal={search}
       />

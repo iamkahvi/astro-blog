@@ -56,7 +56,12 @@ export function useUrlSyncedSearch(initialSearch = "") {
     updateUrlQuery(value);
   };
 
-  return { search, handleSearch };
+  const clearSearch = () => {
+    setSearch("");
+    updateUrlQuery("");
+  };
+
+  return { search, handleSearch, clearSearch };
 }
 
 function getHighlightPatterns(query: string): string[] | null {

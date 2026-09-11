@@ -14,7 +14,65 @@ pre[class*="astro-code"] {
   border-radius: 0.5rem;
   padding: 1em;
   margin-bottom: 20px;
+  max-width: 100%;
   overflow: auto;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+}
+
+.search-bar input {
+  padding-right: 2.5rem;
+}
+
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0.25rem 0.45rem;
+  color: var(--c-second);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.search-clear:hover {
+  background-color: transparent;
+  color: var(--c-main);
+}
+
+.search-clear:focus-visible {
+  box-shadow: 0 0 0 1px var(--c-main);
+}
+
+/* Keep wide content inside the viewport on small screens. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+.textBody {
+  overflow-wrap: anywhere;
+}
+
+.textBody table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.flex > * {
+  min-width: 0;
 }
 
 .booklist img {
@@ -186,6 +244,7 @@ blockquote {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html {

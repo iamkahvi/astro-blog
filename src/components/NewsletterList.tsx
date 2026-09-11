@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function NewsletterList(props: Props) {
-  const { search, handleSearch } = useUrlSyncedSearch(props.initialSearch);
+  const { search, handleSearch, clearSearch } = useUrlSyncedSearch(props.initialSearch);
   const newsletterListRef = useRef<HTMLDivElement>(null);
 
   useSearchHighlights(newsletterListRef, search, [props.issues]);
@@ -31,6 +31,7 @@ export default function NewsletterList(props: Props) {
     <>
       <SearchBar
         handleSearch={handleSearch}
+        handleClear={clearSearch}
         placeholderText="search newsletter..."
         searchVal={search}
       />

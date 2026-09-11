@@ -4,11 +4,13 @@ import { useEffect, useRef } from 'preact/hooks';
 interface searchBarProps {
   placeholderText: string;
   handleSearch: (e: JSX.TargetedEvent<HTMLInputElement, Event>) => void;
+  handleClear: () => void;
   searchVal: string;
 }
 
 export default function SearchBar({
   handleSearch,
+  handleClear,
   placeholderText,
   searchVal,
 }: searchBarProps) {
@@ -38,13 +40,13 @@ export default function SearchBar({
   }, []);
 
   return (
-    <>
+    <div className="search-bar mb3">
       <input
         ref={inputRef}
         onInput={handleSearch}
         placeholder={placeholderText}
         value={searchVal}
-        className="roboto mb3 f5 f4-ns normal ba br3 pa2"
+        className="roboto f5 f4-ns normal ba br3 pa2"
         autocomplete="off"
       />
       <script
@@ -62,6 +64,17 @@ export default function SearchBar({
           `,
         }}
       />
-    </>
+      {searchVal && (
+        <button
+          type="button"
+          className="search-clear"
+          onClick={handleClear}
+          aria-label="Clear search"
+          title="Clear search"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      )}
+    </div>
   );
 }
