@@ -3,6 +3,7 @@ title: "march 2026"
 description: "🥖 just do it from scratch! + my internet journey 🧑‍💻"
 date: 2026-04-16
 substack: "https://www.newsletter.kahvipatel.com/p/march-2026"
+substack_id: 194373639
 ---
 
 Hello!

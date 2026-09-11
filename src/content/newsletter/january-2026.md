@@ -3,6 +3,7 @@ title: "january 2026"
 description: "less spending 🙅‍♂️ more reflecting 🙇"
 date: 2026-02-18
 substack: "https://www.newsletter.kahvipatel.com/p/january-2026"
+substack_id: 188065771
 ---
 
 First, enjoy this patriotic content.

@@ -3,6 +3,7 @@ title: "june+july 2025"
 description: "on journaling, engaging and hummus 🥙"
 date: 2025-08-10
 substack: "https://www.newsletter.kahvipatel.com/p/junejuly-2025"
+substack_id: 168533409
 ---
 
 ### timing

@@ -3,6 +3,7 @@ title: "december 2022"
 description: "time at home"
 date: 2023-01-17
 substack: "https://www.newsletter.kahvipatel.com/p/december-2022"
+substack_id: 96747426
 ---
 
 Hello! this was my december:

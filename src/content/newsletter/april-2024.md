@@ -3,6 +3,7 @@ title: "april 2024"
 description: "sunny adventure ambitions"
 date: 2024-05-16
 substack: "https://www.newsletter.kahvipatel.com/p/april-2024"
+substack_id: 144316141
 ---
 
 Hello!

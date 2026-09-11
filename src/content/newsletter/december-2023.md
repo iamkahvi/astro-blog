@@ -3,6 +3,7 @@ title: "december 2023"
 description: "one year of newsletters!"
 date: 2024-01-14
 substack: "https://www.newsletter.kahvipatel.com/p/december-2023"
+substack_id: 140427095
 ---
 
 hello!

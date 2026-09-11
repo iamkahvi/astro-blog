@@ -3,6 +3,7 @@ title: "october 2023"
 description: "walks, talks and spocks"
 date: 2023-11-17
 substack: "https://www.newsletter.kahvipatel.com/p/october-2023"
+substack_id: 138935536
 ---
 
 🎃

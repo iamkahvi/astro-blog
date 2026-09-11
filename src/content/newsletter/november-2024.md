@@ -3,6 +3,7 @@ title: "november 2024"
 description: "moving and time shifting"
 date: 2024-12-23
 substack: "https://www.newsletter.kahvipatel.com/p/november-2024"
+substack_id: 153497339
 ---
 
 Hello and Happy Holidays!

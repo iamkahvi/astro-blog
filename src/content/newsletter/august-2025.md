@@ -3,6 +3,7 @@ title: "august 2025"
 description: "trampoline and twenty-seven 🤸"
 date: 2025-09-23
 substack: "https://www.newsletter.kahvipatel.com/p/august-2025"
+substack_id: 174144127
 ---
 
 This is what occurred in August:

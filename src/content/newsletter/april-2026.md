@@ -3,6 +3,7 @@ title: "april 2026"
 description: "lawyering 💼 and cheffing 🥘"
 date: 2026-05-15
 substack: "https://www.newsletter.kahvipatel.com/p/april-2026"
+substack_id: 197176063
 ---
 
 Hello and welcome. I hope you’re having a great start to the summer.

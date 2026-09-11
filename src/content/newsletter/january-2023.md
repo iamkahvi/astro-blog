@@ -3,6 +3,7 @@ title: "january 2023"
 description: "the newyear"
 date: 2023-02-12
 substack: "https://www.newsletter.kahvipatel.com/p/january-2023"
+substack_id: 102515862
 ---
 
 hola

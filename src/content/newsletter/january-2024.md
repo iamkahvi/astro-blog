@@ -3,6 +3,7 @@ title: "january 2024"
 description: "new resolutions!"
 date: 2024-02-17
 substack: "https://www.newsletter.kahvipatel.com/p/january-2024"
+substack_id: 141711159
 ---
 
 bet you forgot about this huh!?!? valentine's day and everything. i kind of did too.

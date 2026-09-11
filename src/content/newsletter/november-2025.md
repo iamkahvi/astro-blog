@@ -3,6 +3,7 @@ title: "november 2025"
 description: "pronunciation 🗣️ and birds 🐦‍⬛"
 date: 2025-12-16
 substack: "https://www.newsletter.kahvipatel.com/p/november-2025"
+substack_id: 181463253
 ---
 
 .⠀🤠  

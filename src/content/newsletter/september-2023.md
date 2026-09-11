@@ -3,6 +3,7 @@ title: "september 2023"
 description: "a short one"
 date: 2023-10-13
 substack: "https://www.newsletter.kahvipatel.com/p/september-2023"
+substack_id: 137936800
 ---
 
 September is one of those months that seems to fly by.

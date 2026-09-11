@@ -3,6 +3,7 @@ title: "on AI - part 3"
 description: "my opinions !"
 date: 2023-05-26
 substack: "https://www.newsletter.kahvipatel.com/p/on-ai-part-3"
+substack_id: 123885809
 ---
 
 Hopefully you’ve read [Part 1](https://www.newsletter.kahvipatel.com/p/march-2023-on-ai-oh-no) and [Part 2](https://www.newsletter.kahvipatel.com/p/on-ai-part-2).

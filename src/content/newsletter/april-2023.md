@@ -3,6 +3,7 @@ title: "april 2023"
 description: "a fish in a pond"
 date: 2023-05-20
 substack: "https://www.newsletter.kahvipatel.com/p/april-2023"
+substack_id: 121917944
 ---
 
 ### layoffs

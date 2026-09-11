@@ -3,6 +3,7 @@ title: "june + july 2026"
 description: "sickness 😷 and a shelf 🪚"
 date: 2026-08-17
 substack: "https://www.newsletter.kahvipatel.com/p/june-july-2026"
+substack_id: 211146190
 ---
 
 Happy sunday! To quote myself from [last year](https://www.newsletter.kahvipatel.com/p/junejuly-2025)

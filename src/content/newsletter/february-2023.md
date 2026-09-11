@@ -3,6 +3,7 @@ title: "february 2023"
 description: "a trip"
 date: 2023-03-20
 substack: "https://www.newsletter.kahvipatel.com/p/february-2023"
+substack_id: 108898260
 ---
 
 February has mostly revolved around my trip to Costa Rica. this post will serve as a sort of guide/reflection on my time there.

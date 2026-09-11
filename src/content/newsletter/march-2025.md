@@ -3,6 +3,7 @@ title: "march 2025"
 description: "on ai and other things 🌅"
 date: 2025-04-15
 substack: "https://www.newsletter.kahvipatel.com/p/march-2025"
+substack_id: 161270654
 ---
 
 ![](https://cdn.kahvipatel.com/newsletter-assets/161270654-img-001.jpg)

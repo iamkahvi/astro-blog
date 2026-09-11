@@ -3,6 +3,7 @@ title: "december 2025"
 description: "in portugal 🇵🇹 and building a calendar 🗓️"
 date: 2026-01-16
 substack: "https://www.newsletter.kahvipatel.com/p/december-2025"
+substack_id: 184230330
 ---
 
 welcome and **happy new year**!

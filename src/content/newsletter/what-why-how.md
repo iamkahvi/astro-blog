@@ -3,6 +3,7 @@ title: "what? why? how?"
 description: "why am I doing this"
 date: 2023-01-15
 substack: "https://www.newsletter.kahvipatel.com/p/what-why-how"
+substack_id: 96719581
 ---
 
 In the spirit of *creating more* and *consuming less* AND because of people like [jenn schiffer](https://livelaugh.blog/posts/2023/), I’ve been inspired to start writing a newsletter.
