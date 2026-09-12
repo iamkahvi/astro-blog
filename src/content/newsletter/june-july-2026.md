@@ -18,9 +18,7 @@ This year, **getting sick** was thrown into the mix. So sick that I literally ca
 
 I was in Victoria for all of June which was wonderful. June is one of the [best months](https://sunlight.kahvipatel.com/?lat=48.4284&lon=-123.3656&tz=America%2FVancouver&n=Victoria%2C+British+Columbia%2C+Canada&y=2026&m=6) to be in Victoria.
 
-I
-
-visited a culinary school
+I visited a culinary school
 
 ![](https://cdn.kahvipatel.com/newsletter-assets/211146190-missing-001.jpg)
 
