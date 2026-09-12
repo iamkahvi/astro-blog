@@ -18,6 +18,14 @@
   border: 1px solid var(--c-third);
   border-radius: 0.8rem;
   overflow: hidden;
+  background: var(--c-background);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletter-card:hover,
+.newsletter-card:focus-within {
+  transform: translateY(-0.35rem);
+  box-shadow: 0 0.6rem 1.25rem rgb(0 0 0 / 12%);
 }
 
 .newsletter-card-link {
@@ -83,6 +91,12 @@
   font-size: 0.75rem;
   line-height: 1.5;
   text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-card {
+    transition: none;
+  }
 }
 
 @media only screen and (max-width: 60rem) {

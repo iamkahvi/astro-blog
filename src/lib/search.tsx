@@ -9,8 +9,8 @@ export function stripMarkdown(md: string): string {
   return md
     .replace(/!\[.*?\]\(.*?\)/g, "") // Images
     .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Links: keep text, drop url
-    .replace(/[`#*_~>]/g, "") // Common formatting tokens
     .replace(/<[^>]*>/g, "") // HTML tags
+    .replace(/[`#*_~>]/g, "") // Common formatting tokens
     .replace(/\s+/g, " ")
     .trim();
 }

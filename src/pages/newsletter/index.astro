@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../components/Layout.astro";
 import NewsletterLogo from "../../components/NewsletterLogo.astro";
 import NewsletterList from "../../components/NewsletterList";
-import { getSearchFromParams } from "../../lib/search";
+import { getSearchFromParams, stripMarkdown } from "../../lib/search";
 import "../../styles/newsletter-archive.css";
 
 const title = "newsletter";
@@ -16,6 +16,15 @@ const sortedIssues = allIssues
     (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
   );
 const initialSearch = getSearchFromParams(Astro.url.searchParams);
+
+// `NewsletterList` hydrates on the client. Do not serialize the raw Markdown
+// body into its props: embedded HTML is interpreted by Firefox's speculative
+// loader, which mistakenly requests iframe URLs from this site's origin.
+const searchableIssues = sortedIssues.map(({ id, data, body }) => ({
+  id,
+  data,
+  body: stripMarkdown(body),
+}));
 ---
 
 <Layout title={title} description={description}>
@@ -27,7 +36,7 @@ const initialSearch = getSearchFromParams(Astro.url.searchParams);
     </a>
   </p>
   <NewsletterList
-    issues={sortedIssues}
+    issues={searchableIssues}
     initialSearch={initialSearch}
     client:load
   />

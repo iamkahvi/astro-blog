@@ -9,7 +9,10 @@ import {
   useUrlSyncedSearch,
 } from "../lib/search";
 
-type NewsletterIssue = CollectionEntry<"newsletter">;
+type NewsletterIssue = Pick<
+  CollectionEntry<"newsletter">,
+  "id" | "data" | "body"
+>;
 
 const coverExtensions: Record<number, string | null> = {
   115770857: "png",
