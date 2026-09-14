@@ -9,8 +9,9 @@ export function stripMarkdown(md: string): string {
   return md
     .replace(/!\[.*?\]\(.*?\)/g, "") // Images
     .replace(/\[(.*?)\]\(.*?\)/g, "$1") // Links: keep text, drop url
-    .replace(/[`#*_~>]/g, "") // Common formatting tokens
+    .replace(/&lt;\/?[a-z][\w:-]*(?:\s[\s\S]*?)?(?:>|&gt;)/gi, "") // HTML tags escaped by Astro content collections
     .replace(/<[^>]*>/g, "") // HTML tags
+    .replace(/[`#*_~>]/g, "") // Common formatting tokens
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -157,6 +158,7 @@ export interface SearchableIssue {
     description?: string;
   };
   body?: string;
+  searchText?: string;
 }
 
 type SearchFieldGetters<T> = Record<string, (item: T) => string[]> & {
@@ -205,6 +207,6 @@ export function filterNewsletterIssues<T extends SearchableIssue>(
       issue.data.title,
       issue.data.description ?? "",
     ],
-    content: (issue) => [stripMarkdown(issue.body ?? "")],
+    content: (issue) => [issue.searchText ?? stripMarkdown(issue.body ?? "")],
   });
 }

@@ -1,10 +1,18 @@
-import type { CollectionEntry } from "astro:content";
 import { useRef } from "preact/hooks";
 import SearchBar from "./SearchBar";
 import { filterNewsletterIssues, useSearchHighlights, useUrlSyncedSearch } from "../lib/search";
 import { getDateFormats, getSlugFromPath } from "../lib/utils";
 
-type Entry = CollectionEntry<"posts"> | CollectionEntry<"newsletter">;
+type Entry = {
+  id: string;
+  collection: "posts" | "newsletter";
+  data: {
+    title: string;
+    date: Date;
+    description?: string;
+  };
+  searchText: string;
+};
 
 export default function BlogList({ entries, initialSearch = "" }: { entries: Entry[]; initialSearch?: string }) {
   const { search, handleSearch, clearSearch } = useUrlSyncedSearch(initialSearch);

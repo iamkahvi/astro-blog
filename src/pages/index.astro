@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
-import { getSearchFromParams } from "../lib/search";
+import { getSearchFromParams, stripMarkdown } from "../lib/search";
 
 const siteMetadata = {
   title: `kahvi's blog`,
@@ -20,7 +20,19 @@ const { title, description } = siteMetadata;
 
 const entries = [...await getCollection("posts"), ...await getCollection("newsletter")]
   .filter((entry) => entry.data.published ?? true)
-  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .map((entry) => ({
+    id: entry.id,
+    collection: entry.collection,
+    data: {
+      title: entry.data.title,
+      date: entry.data.date,
+      description: entry.data.description,
+    },
+    // Keep raw Markdown/HTML out of the hydrated search data. In particular,
+    // this prevents embedded iframe URLs from being interpreted as page assets.
+    searchText: stripMarkdown(entry.body ?? ""),
+  }));
 const initialSearch = getSearchFromParams(Astro.url.searchParams);
 ---
 
