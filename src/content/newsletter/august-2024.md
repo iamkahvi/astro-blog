@@ -4,6 +4,7 @@ description: "in Vienna, it's my birthday"
 date: 2024-09-15
 substack: "https://www.newsletter.kahvipatel.com/p/august-2024"
 substack_id: 148872893
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/148872893-cover-001.jpg"
 ---
 
 Hallo.

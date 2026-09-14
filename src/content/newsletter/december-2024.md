@@ -4,6 +4,7 @@ description: "📦 moving in, 🎄 calendars and Walmart"
 date: 2025-01-16
 substack: "https://www.newsletter.kahvipatel.com/p/december-2024"
 substack_id: 154719402
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/154719402-cover-001.jpg"
 ---
 
 If November was mostly about **moving out,** December was mostly about **moving in.**

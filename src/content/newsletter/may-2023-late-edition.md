@@ -4,6 +4,7 @@ description: "weddings and the lsat"
 date: 2023-06-21
 substack: "https://www.newsletter.kahvipatel.com/p/may-2023-late-edition"
 substack_id: 130044943
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/130044943-cover-001.jpg"
 ---
 
 Well it’s past the middle of June, so it’s time for my May newsletter.

@@ -4,6 +4,7 @@ description: "sickness 😷 and a shelf 🪚"
 date: 2026-08-17
 substack: "https://www.newsletter.kahvipatel.com/p/june-july-2026"
 substack_id: 211146190
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/211146190-cover-001.jpg"
 ---
 
 Happy sunday! To quote myself from [last year](https://www.newsletter.kahvipatel.com/p/junejuly-2025)
@@ -18,9 +19,7 @@ This year, **getting sick** was thrown into the mix. So sick that I literally ca
 
 I was in Victoria for all of June which was wonderful. June is one of the [best months](https://sunlight.kahvipatel.com/?lat=48.4284&lon=-123.3656&tz=America%2FVancouver&n=Victoria%2C+British+Columbia%2C+Canada&y=2026&m=6) to be in Victoria.
 
-I
-
-visited a culinary school
+I visited a culinary school
 
 ![](https://cdn.kahvipatel.com/newsletter-assets/211146190-missing-001.jpg)
 

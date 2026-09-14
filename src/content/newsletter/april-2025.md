@@ -4,6 +4,7 @@ description: "time in ottawa and the prospect of a phone fast 📱"
 date: 2025-05-13
 substack: "https://www.newsletter.kahvipatel.com/p/april-2025"
 substack_id: 163359387
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/163359387-cover-001.jpg"
 ---
 
 ## on loss

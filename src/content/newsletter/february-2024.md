@@ -4,6 +4,7 @@ description: "sweatin for serotonin"
 date: 2024-03-12
 substack: "https://www.newsletter.kahvipatel.com/p/february-2024"
 substack_id: 142535899
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/142535899-cover-001.jpg"
 ---
 
 Hello! 👽

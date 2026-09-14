@@ -4,6 +4,7 @@ description: "v-day 💌 and halifax ⚓"
 date: 2025-03-13
 substack: "https://www.newsletter.kahvipatel.com/p/february-2025"
 substack_id: 158964451
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/158964451-cover-001.png"
 ---
 
 It was valentine’s day this month, and I’d like to share a version of what I wrote to Ashley.

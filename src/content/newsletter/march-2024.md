@@ -4,6 +4,7 @@ description: "CIA orchestrated weeknight activities"
 date: 2024-04-20
 substack: "https://www.newsletter.kahvipatel.com/p/march-2024"
 substack_id: 143627439
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/143627439-cover-001.jpg"
 ---
 
 Hello! Happy 20th of April!

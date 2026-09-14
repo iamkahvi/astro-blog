@@ -4,6 +4,7 @@ description: "moving and time shifting"
 date: 2024-12-23
 substack: "https://www.newsletter.kahvipatel.com/p/november-2024"
 substack_id: 153497339
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/153497339-cover-001.jpg"
 ---
 
 Hello and Happy Holidays!

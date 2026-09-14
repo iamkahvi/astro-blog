@@ -4,6 +4,7 @@ description: "🦷 i bought a waterpik and built a website 🌤️"
 date: 2026-03-13
 substack: "https://www.newsletter.kahvipatel.com/p/february-2026"
 substack_id: 190327231
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/190327231-cover-001.jpg"
 ---
 
 Hello and welcome 🙇

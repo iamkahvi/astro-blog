@@ -56,7 +56,7 @@ export default function BookList(props: Props) {
             >
               <span className="fw5">{title}</span>
             </a>
-            by {author}
+            {" by "}{author}
             {parseInt(year) >= EARLIEST_YEAR_WITH_FINISH_DATE && (
               <em> - {dateFinished} </em>
             )}

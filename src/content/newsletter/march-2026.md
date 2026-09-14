@@ -4,6 +4,7 @@ description: "🥖 just do it from scratch! + my internet journey 🧑‍💻"
 date: 2026-04-16
 substack: "https://www.newsletter.kahvipatel.com/p/march-2026"
 substack_id: 194373639
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/194373639-cover-001.jpg"
 ---
 
 Hello!

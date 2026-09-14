@@ -4,6 +4,7 @@ description: "time at home"
 date: 2023-01-17
 substack: "https://www.newsletter.kahvipatel.com/p/december-2022"
 substack_id: 96747426
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/96747426-cover-001.jpg"
 ---
 
 Hello! this was my december:

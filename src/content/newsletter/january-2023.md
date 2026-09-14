@@ -4,6 +4,7 @@ description: "the newyear"
 date: 2023-02-12
 substack: "https://www.newsletter.kahvipatel.com/p/january-2023"
 substack_id: 102515862
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/102515862-cover-001.jpg"
 ---
 
 hola

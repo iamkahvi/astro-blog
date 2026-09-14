@@ -35,6 +35,7 @@ const newsletterCollection = defineCollection({
     published: z.boolean().optional(),
     substack: z.string().optional(),
     substack_id: z.number().optional(),
+    cover: z.string().url().nullable(),
   }),
 });
 

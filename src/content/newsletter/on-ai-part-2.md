@@ -4,6 +4,7 @@ description: "how to build ChatGPT"
 date: 2023-05-26
 substack: "https://www.newsletter.kahvipatel.com/p/on-ai-part-2"
 substack_id: 121695626
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/121695626-cover-001.png"
 ---
 
 This is a continuation of [part 1](https://www.newsletter.kahvipatel.com/p/march-2023-on-ai-oh-no). Please consider reading that before continuing.

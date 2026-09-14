@@ -4,6 +4,7 @@ description: "less spending 🙅‍♂️ more reflecting 🙇"
 date: 2026-02-18
 substack: "https://www.newsletter.kahvipatel.com/p/january-2026"
 substack_id: 188065771
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/188065771-cover-001.jpg"
 ---
 
 First, enjoy this patriotic content.

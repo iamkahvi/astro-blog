@@ -4,6 +4,7 @@ description: "new resolutions!"
 date: 2024-02-17
 substack: "https://www.newsletter.kahvipatel.com/p/january-2024"
 substack_id: 141711159
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/141711159-cover-001.jpg"
 ---
 
 bet you forgot about this huh!?!? valentine's day and everything. i kind of did too.

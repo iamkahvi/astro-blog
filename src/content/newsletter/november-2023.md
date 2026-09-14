@@ -4,6 +4,7 @@ description: "que bien"
 date: 2023-12-15
 substack: "https://www.newsletter.kahvipatel.com/p/november-2023"
 substack_id: 139766578
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/139766578-cover-001.jpg"
 ---
 
 Hey! Is life just about **planning things** and then **doing them**?

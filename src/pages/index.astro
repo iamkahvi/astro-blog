@@ -28,6 +28,7 @@ const entries = [...await getCollection("posts"), ...await getCollection("newsle
       title: entry.data.title,
       date: entry.data.date,
       description: entry.data.description,
+      cover: entry.collection === "newsletter" ? entry.data.cover : null,
     },
     // Keep raw Markdown/HTML out of the hydrated search data. In particular,
     // this prevents embedded iframe URLs from being interpreted as page assets.

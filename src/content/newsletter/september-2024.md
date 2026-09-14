@@ -4,6 +4,7 @@ description: "🙅‍♂️✍️"
 date: 2024-10-13
 substack: "https://www.newsletter.kahvipatel.com/p/september-2024"
 substack_id: 150190649
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/150190649-cover-001.jpg"
 ---
 
 Surprisingly enough, after twenty editions of this newsletter, I had no time to put together any writing for this month! Something about going to Europe and running an 8K.

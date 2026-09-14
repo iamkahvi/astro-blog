@@ -4,6 +4,7 @@ description: "on a boat, it's my birthday"
 date: 2023-09-10
 substack: "https://www.newsletter.kahvipatel.com/p/august-2023"
 substack_id: 136741684
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/136741684-cover-001.jpg"
 ---
 
 birthday month!

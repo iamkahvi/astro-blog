@@ -4,6 +4,7 @@ description: "another take on AI. you're welcome"
 date: 2023-04-21
 substack: "https://www.newsletter.kahvipatel.com/p/march-2023-on-ai-oh-no"
 substack_id: 115770857
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/115770857-cover-001.png"
 ---
 
 Sorry past Kahvi (and everyone else), this one is very late.

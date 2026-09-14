@@ -4,6 +4,7 @@ description: "💼 work encroaching, 💭 resolutions approaching"
 date: 2025-02-14
 substack: "https://www.newsletter.kahvipatel.com/p/january-2025"
 substack_id: 156810724
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/156810724-cover-001.jpg"
 ---
 
 Wow!!! 2025!!! 🥳

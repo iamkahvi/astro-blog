@@ -4,6 +4,7 @@ description: "a loose collection of unrelated thoughts"
 date: 2024-11-13
 substack: "https://www.newsletter.kahvipatel.com/p/october-2024-extended"
 substack_id: 151438638
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/151438638-cover-001.jpg"
 ---
 
 Hi!

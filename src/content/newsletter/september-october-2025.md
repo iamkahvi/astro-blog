@@ -4,6 +4,7 @@ description: "the homelab and a notepad 📔"
 date: 2025-11-15
 substack: "https://www.newsletter.kahvipatel.com/p/septemberoctober-2025"
 substack_id: 178944430
+cover: "https://cdn.kahvipatel.com/newsletter-assets/covers/178944430-cover-001.jpg"
 ---
 
 it’s been a busy september and october. as a result, i’ve had to miss september’s edition of this newsletter (exactly how it happened [last year](https://www.newsletter.kahvipatel.com/p/september-2024) actually).
