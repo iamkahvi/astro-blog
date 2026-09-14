@@ -2,8 +2,6 @@
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import BlogList from "../components/BlogList";
-import BookListLogo from "../components/BookListLogo.astro";
-import NewsletterLogo from "../components/NewsletterLogo.astro";
 import { getSearchFromParams } from "../lib/search";
 
 const siteMetadata = {
@@ -20,20 +18,12 @@ const siteMetadata = {
 
 const { title, description } = siteMetadata;
 
-const allPosts = await getCollection("posts");
-const sortedPosts = allPosts
-  .sort(
-    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
-  )
-  .filter((p) => {
-    const published = p.data?.published ?? true;
-    return published;
-  });
+const entries = [...await getCollection("posts"), ...await getCollection("newsletter")]
+  .filter((entry) => entry.data.published ?? true)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 const initialSearch = getSearchFromParams(Astro.url.searchParams);
 ---
 
 <Layout title={title} description={description}>
-  <NewsletterLogo />
-  <BookListLogo />
-  <BlogList posts={sortedPosts} initialSearch={initialSearch} client:load />
+  <BlogList entries={entries} initialSearch={initialSearch} client:load />
 </Layout>
