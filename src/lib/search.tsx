@@ -37,7 +37,8 @@ export function updateUrlQuery(query: string): void {
     url.searchParams.delete("search");
   }
   const newUrl = url.pathname + url.search + url.hash;
-  window.history.replaceState(null, "", newUrl);
+  window.history.replaceState(window.history.state, "", newUrl);
+  window.dispatchEvent(new Event("site:replace-state"));
 }
 
 export function useUrlSyncedSearch(initialSearch = "") {

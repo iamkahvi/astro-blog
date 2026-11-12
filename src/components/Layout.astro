@@ -12,7 +12,11 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <meta name="site-layout" content="main" />
     <title>{title}</title>
+    <script>
+      import "../lib/navigation";
+    </script>
   </head>
   <body>
     <header>
